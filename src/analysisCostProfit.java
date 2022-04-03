@@ -94,7 +94,7 @@ public class analysisCostProfit {
         return commentResult;
     }
     
-    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
         ArrayList<Integer> db;
        db=getProfitOfProduct();
        //Örnek Sonuçlar
@@ -119,6 +119,6 @@ public class analysisCostProfit {
             System.out.println(s);
         }
         
-    }
+    }*/
     
 }

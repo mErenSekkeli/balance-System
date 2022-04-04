@@ -10,10 +10,10 @@ public class Connector {
     private String admin_pass="SISTEManalizi123";
     private String db_name="sistemAnalizi";
     private String host="207.154.220.30";
-    private int port=3306;
-    private Connection con=null;
-    private Statement state=null;
-    private PreparedStatement preState=null;
+    int port=3306;
+    Connection con=null;
+    Statement state=null;
+    PreparedStatement preState=null;
     
     public Connector(){
         
@@ -27,17 +27,12 @@ public class Connector {
         }
         
         try {
-            System.out.println("Baglanti Yapiliyor...");
             con=DriverManager.getConnection(url,admin_ad,admin_pass);
             System.out.println("Baglanti Basarili...");
         } catch (SQLException ex) {
             System.out.println(ex);
             System.out.println("Veri Tabanina Baglanti Basarisiz...");
         }
-        
-    }
-    public static void main(String[] args) {
-        Connector db=new Connector();
         
     }
     

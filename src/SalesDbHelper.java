@@ -5,10 +5,8 @@ import java.util.ArrayList;
 public class SalesDbHelper {
     Connector db;
     
-    public SalesDbHelper(){}
-    
-    public void initDb(){
-        this.db = new Connector();
+    public SalesDbHelper(){
+    this.db = new Connector();
     }
     
     public void getItemsOfOrder(Sale s){

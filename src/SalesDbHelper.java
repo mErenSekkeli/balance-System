@@ -102,6 +102,15 @@ public class SalesDbHelper {
        return sale;
     }
     
+    // Siparişi iade etmeye çalışır, işlemin başarılı olup olmadığına dair sonuç döndürür.
+    // Şuanda prototip durumda ekledim - Selim
+    // Not: yukarıda bir delete sale fonksiyonu var ama o mu emin olamadım
+    // Bir de sale objesi gerektiriyor, duruma göre bunu silip doğrudan o fonksiyonu
+    // çağrabilirim.
+    public boolean refundSale(int orderId) {
+        return true;
+    }
+    
     
        // ToDo: add order item to db
 }

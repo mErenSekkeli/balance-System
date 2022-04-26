@@ -3,6 +3,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Connector {
     
@@ -35,5 +36,14 @@ public class Connector {
         }
         
     }
-    
+    /*
+    public static void main(String[] args) {
+        Connector db=new Connector();
+        
+        ArrayList<Product> asd = new ArrayList();
+       
+        System.out.println(asd.prepareProduct());
+
+    }
+*/
 }

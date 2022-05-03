@@ -18,8 +18,7 @@ public class registerPage extends javax.swing.JFrame {
     private String mes="Kayit Basarili! Yonlendiriliyorsunuz";
     public registerPage() {
         initComponents();
-    }
-    
+    }  
     private static Connector db=new Connector();
     private String query = "INSERT INTO accounts(account_email, account_password_hash, account_role) VALUES (?, ?, ?)";
     
@@ -134,26 +133,33 @@ public class registerPage extends javax.swing.JFrame {
             String pass = user_pass.getText();
             String pass2 = user_pass2.getText();
             
-            if(account_role == null || username == null || mail == null || pass == null || pass2 == null ){
-                System.out.println("asdad");
+            
+            
+            if(pass.length() < 8){
+                
+                info_message.setBackground(new Color(37, 146, 67));
+                info_message.setText("Kullanici Kaydi basarisiz: Sifre uzunlugu en az 8 karakter olmalı");
             }
-                   
+            else if(pass.compareTo(pass2) != 0){
+                info_message.setBackground(new Color(37, 146, 67));
+                info_message.setText("Kullanici Kaydi basarisiz: Girdiginiz iki sifre uyusmuyor");
+            }   
             else{ 
-            System.out.println(mail+"--"+pass);
             
                 
             db.preState=db.con.prepareStatement(query);
             db.preState.setString(1, mail);
             db.preState.setString(2, pass);
             db.preState.setString(3, account_role);
-            var check = db.preState.executeUpdate();
+            int check = db.preState.executeUpdate();
             
             
             // kullanıcı kaydı başarılı ise kullanıcı girişi yapması için yönlendirme yapılır.
             
             
-            System.out.println(check);
+            System.out.println("Kullanici kaydi basarili kullanici giris yapmasi icin yonlendiriliyor");
             
+            // Kullanıcının accounts tablosundaki insert edildiğinde oluşan id'si employer tablosundaki ile eşlenip kullanıcı o tabloya da insert ediliyor
             query = "SELECT * FROM accounts where account_email = ? and account_password_hash = ?";
             db.preState=db.con.prepareStatement(query);
             db.preState.setString(1, mail);
@@ -162,6 +168,8 @@ public class registerPage extends javax.swing.JFrame {
             
             if(rs != null){
                 rs.next();
+                
+                info_message.setForeground(new Color(37, 146, 67));
                 info_message.setText("Kullanici girisi basarili!");
                 int account_emp_id = rs.getInt("account_emp_id");
                 
@@ -178,7 +186,9 @@ public class registerPage extends javax.swing.JFrame {
             db.preState.setDate(4, sDate);
             db.preState.executeUpdate();
             
+            info_message.setBackground(new Color(37,146,67));
             info_message.setText("Kullanici kaydi basarili!");
+            
             
             Timer timer=new Timer(1200, null);
             timer.addActionListener(new ActionListener(){
@@ -202,6 +212,7 @@ public class registerPage extends javax.swing.JFrame {
             
         } catch (SQLException ex) {
             
+            info_message.setForeground(new Color(255, 0, 0));
             info_message.setText("Kullanici kaydi basarisiz!");
             
             Logger.getLogger(loginPage.class.getName()).log(Level.SEVERE, null, ex);

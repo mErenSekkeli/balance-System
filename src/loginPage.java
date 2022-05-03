@@ -1,16 +1,11 @@
+import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Date;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
 public class loginPage extends javax.swing.JFrame {
     
@@ -125,6 +120,7 @@ public class loginPage extends javax.swing.JFrame {
             
             if(rs != null){
                 rs.next();
+                info_message.setForeground(new Color(37, 146, 67));
                 info_message.setText("Kullanici girisi basarili!");
                 
                 int account_emp_id = rs.getInt("account_emp_id");
@@ -138,14 +134,17 @@ public class loginPage extends javax.swing.JFrame {
                 db.preState.executeUpdate();
             }
             
-            //query = "UPDATE employer SET emp_last_login = ? where emp_name";
-            //Account asd = new Account(rs.getString("account_email"));
+            /*
+            Bu kısımda ilgili sayfaya direct yapılacak
+            */
+            
             
             
         } catch (SQLException ex) {
             
             info_message.setText("Kullanici girisi basarisiz!");
             
+                info_message.setForeground(new Color(255, 0, 0));
             Logger.getLogger(loginPage.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -169,6 +168,8 @@ public class loginPage extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -1,9 +1,7 @@
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,19 +54,31 @@ public class Employee {
         return employeeInfo;
     }
     
+        //satış olunca satış counter'ı arttırma
+    public void soldCounter(int employer_id){
+        try {
+            query="UPDATE employer SET emp_sold_count = emp_sold_count + 1 WHERE emp_id = ?";
+            
+            db.preState=db.con.prepareStatement(query);
+            db.preState.setInt(1, employer_id);
+            db.preState.executeUpdate();
+            
+            query = "SELECT * FROM employer where id = ?";
+            
+            db.preState=db.con.prepareStatement(query);
+            db.preState.setInt(1, employer_id);
+            ResultSet rs=db.preState.executeQuery();
+            if(rs != null){
+                rs.next();
+            
+                System.out.println(rs.getInt("sold_count"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        
     @Override
     public String toString() {
         return this.name+", "+this.ID;
     }
-    /*
-    public static void main(String[] args) {
-        Employee tesat = new Employee();
-        
-        ArrayList<Employee> tesat2 = tesat.prepareEmployee();
-        
-        for(Employee saad : tesat2){
-            System.out.println(saad);
-        }
-    }
-*/
-}

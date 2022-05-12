@@ -1,6 +1,8 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SalesDbHelper {
     Connector db;
@@ -38,6 +40,15 @@ public class SalesDbHelper {
        
        return sales;
     }
+    /*
+    public Iterable<Iterable<? extends CharSequence>> getAllSalesCSVData() {
+        List<Sale> items = getAllSales();
+        List<List<String>> csvTable;
+        List<String> headers = Arrays.asList("", "", );
+        for(Sale saleItem: items) {
+            csvTable.add(Arrays.asList());
+        }
+    }*/
     
     /*
         Parametre olarak gelen sale tipindeki degeri veritabanına yazmayi saglar

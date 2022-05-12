@@ -1,5 +1,9 @@
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -15,6 +19,13 @@ public class analysisCostProfitFrontEnd extends javax.swing.JFrame {
     public analysisCostProfitFrontEnd() {
         initComponents();
         getProductAnalysis();
+        
+          
+        try {
+            CSVExporter.jtExportResultSetWithDialog(this, profitTable, true);
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(ListRefundedProductsUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     //Tablonun Aktif Olması İçin Çağırılan Fonksiyon

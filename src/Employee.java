@@ -54,25 +54,32 @@ public class Employee {
         return employeeInfo;
     }
     
-        //satış olunca satış counter'ı arttırma
-    public void soldCounter(int employer_id){
+    //satış olunca veritabanındaki satış sayısını arttırma fonksiyonu
+    public void increaseSoldCountOfEmployee(int employer_id){
         try {
+            
             query="UPDATE employer SET emp_sold_count = emp_sold_count + 1 WHERE emp_id = ?";
             
             db.preState=db.con.prepareStatement(query);
             db.preState.setInt(1, employer_id);
             db.preState.executeUpdate();
             
-            query = "SELECT * FROM employer where id = ?";
+        } catch (SQLException ex) {
+            Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //iade olunca veritabanındaki satış sayısını azaltma fonksiyonu
+    public void decreaseSoldCountOfEmployee(int employer_id){
+        try {
+            
+            query="UPDATE employer SET emp_sold_count = emp_sold_count - 1 WHERE emp_id = ?";
             
             db.preState=db.con.prepareStatement(query);
             db.preState.setInt(1, employer_id);
-            ResultSet rs=db.preState.executeQuery();
-            if(rs != null){
-                rs.next();
+            db.preState.executeUpdate();
             
-                System.out.println(rs.getInt("sold_count"));
-            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -82,3 +89,4 @@ public class Employee {
     public String toString() {
         return this.name+", "+this.ID;
     }
+}

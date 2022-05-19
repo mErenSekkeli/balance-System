@@ -40,6 +40,7 @@ public class AddOrderPage extends javax.swing.JFrame {
         // sale = new Sale(currentUser.getAccount_id());
         sale = new Sale(75);
         sale.addSale();
+        sale.refundOrderItem(76,1,1);
         saleID = dbHelper.getSaleID();
         System.out.println("AddOrderPage.<init>(): " + saleID);
         sale.ID = saleID;

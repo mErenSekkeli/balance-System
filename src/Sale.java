@@ -77,4 +77,10 @@ public class Sale {
         return true;
     }
       
+    public boolean refundOrderItem(int orderItemId, int orderID, int amount){
+        SalesDbHelper dbHelper = new SalesDbHelper();
+        OrderItem prevOi = dbHelper.getOrderItem(orderItemId);
+        OrderItem oi = new OrderItem(orderID, prevOi.productID, -1 * amount, true, prevOi.price, prevOi.cost);
+        return dbHelper.addOrderItem(oi);
+    }
 }

@@ -1,4 +1,3 @@
-import com.mysql.cj.jdbc.PreparedStatementWrapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class SalesDbHelper {
             System.out.println(e);
         }
     }
-   // Şu anda çalışmıyor
+
     public boolean deleteSale(Sale sale){
         sale.isDeleted = true;
         for (OrderItem oi : sale.productsOfSale) {
@@ -107,8 +106,7 @@ public class SalesDbHelper {
        } catch(SQLException e){
            System.out.println(e);
        }
-        System.out.println("SalesDbHelper.getSaleID() ID: "+ id);
-       return id;
+        return id;
     }
     
     public boolean refundSale(Sale sale){
@@ -156,7 +154,7 @@ public class SalesDbHelper {
        return oi;
     }
     
-    public void addOrderItem(OrderItem oi){
+    public boolean addOrderItem(OrderItem oi){
         try{
             String query = "Insert into order_items (order_items_sales_id, order_items_product_id, order_items_amount, order_items_refunded, order_items_price, order_items_cost)" + "VALUES(?,?,?,'0',?,?)" ;
             db.preState = db.con.prepareStatement(query);
@@ -166,9 +164,29 @@ public class SalesDbHelper {
             db.preState.setDouble(4, oi.price);
             db.preState.setDouble(5, oi.cost);
             db.preState.execute();
+            return true;
         }catch(SQLException e){
             System.out.println("addOrderItem(): "+ e);
+            return false;
         }
+    }
+
+    public OrderItem getOrderItem(int idOfItem){
+        String query;
+        OrderItem oi;
+        query = "SELECT * FROM order_items WHERE `order_items_id`=?"; 
+        try{
+            db.preState = db.con.prepareStatement(query);
+            db.preState.setInt(1, idOfItem);
+            ResultSet rs = db.preState.executeQuery();
+            rs.next();
+            while(rs.next())
+                oi = new OrderItem(rs.getInt("order_items_id"), rs.getInt("order_items_sales_id"), rs.getInt("order_items_product_id"), rs.getInt("order_items_amount") , rs.getBoolean("order_items_refunded"), rs.getDouble("order_items_price"), rs.getDouble("order_items_cost"));
+
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+         return oi;
     }
     
     public void deleteSale(int saleId){

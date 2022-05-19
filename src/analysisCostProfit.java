@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-  @author MUHAMMEDERENŞEKKELİ
- */
+ 
 public class analysisCostProfit {
     //Tools
     private static Connector db=new Connector();

@@ -1,0 +1,11 @@
+05.04.2022
+Table `sales` altered (sales_total_price[int] => sales_total_price[double])
+Table `order_products` altered (order_products_price[int] => (order_products_price[double])
+Table `products` altered (product_cost[int] => product_cost[double])
+Table `products` altered product_market_price[int] => product_market_price[double])
+Table `products` altered product_price[int] => product_price[double])
+
+Table `ordered_products` renamed to `order_items`
+Table `sales` renamed to `orders`
+- All column prefixes of tables above got updated to the new ones.
+-------------------

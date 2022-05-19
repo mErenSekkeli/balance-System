@@ -6,6 +6,7 @@ public class OrderItem {
     public int amount;
     public boolean isRefunded;
     public double price;
+    public double cost;
     
     public OrderItem(int saleID, Product product, int amount){
         this.saleID = saleID;

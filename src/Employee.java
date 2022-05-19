@@ -55,7 +55,7 @@ public class Employee {
     }
     
     //satış olunca veritabanındaki satış sayısını arttırma fonksiyonu
-    public void increaseSoldCountOfEmployee(int employer_id){
+    public static void increaseSoldCountOfEmployee(int employer_id){
         try {
             
             query="UPDATE employer SET emp_sold_count = emp_sold_count + 1 WHERE emp_id = ?";
@@ -70,7 +70,7 @@ public class Employee {
     }
     
     //iade olunca veritabanındaki satış sayısını azaltma fonksiyonu
-    public void decreaseSoldCountOfEmployee(int employer_id){
+    public static void decreaseSoldCountOfEmployee(int employer_id){
         try {
             
             query="UPDATE employer SET emp_sold_count = emp_sold_count - 1 WHERE emp_id = ?";

@@ -10,10 +10,8 @@ public class SalesDbHelper {
         this.db = new Connector();
     }
     
-    /*
-        Database'de bulunan orders tablosundaki tüm verileri çekmeyi sağlar.
-        Geriye ArrayList<Sale>'la bu verileri döner.
-    */
+    
+    // Database'de bulunan orders tablosundaki tüm verileri çekmeyi sağlar. Geriye ArrayList<Sale>'la bu verileri döner.
     public ArrayList<Sale> getAllSales(){
        ArrayList<Sale> sales = new ArrayList<>();
        String query = "SELECT * FROM orders";

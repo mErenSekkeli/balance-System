@@ -249,4 +249,32 @@ public class ProductOperations {
         }
         return offStockProducts;
     }
+    
+    //integer array olarak verilen id listesine göre ürünlerden oluşan arraylist döndürür
+    public ArrayList<Product> getProductsById(int idList[]) {
+        ArrayList<Product> Products = new ArrayList<>();
+        for(int id:idList){
+            try {
+                String query = "SELECT * FROM products WHERE product_id = ?";
+                db.preState=db.con.prepareStatement(query);
+                db.preState.setInt(1, id);
+
+                rs=db.preState.executeQuery();
+                while(rs.next()){
+                    Products.add(new Product(rs.getInt("product_id"),rs.getString("product_name"),rs.getDouble("product_price"),rs.getDouble("product_cost"),rs.getDouble("product_market_price"),rs.getInt("product_stock"),rs.getBoolean("product_enabled")));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+        return Products;
+    }
 }

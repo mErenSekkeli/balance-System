@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 public class OrderItem {
@@ -10,7 +11,7 @@ public class OrderItem {
     public double price;
     public char isRefundedText;
     public double cost;
-
+    
     public OrderItem(int saleID, Product product, int amount){
         this.saleID = saleID;
         this.product = product;
@@ -20,7 +21,7 @@ public class OrderItem {
         this.price = product.price;
         this.cost = product.cost;
     }
-
+    
     public OrderItem(int ID, int saleID, int productID, int amount, boolean isRefunded, double price, double cost){
         this.ID = ID;
         this.saleID = saleID;
@@ -30,7 +31,7 @@ public class OrderItem {
         this.price = price;
         this.cost = cost;
     }
-
+    
     public OrderItem(int saleID, int productID, int amount, char isRefundedText, double price){
         this.saleID = saleID;
         this.productID = productID;
@@ -38,7 +39,7 @@ public class OrderItem {
         this.isRefundedText = isRefundedText;
         this.price = price;
     }
-
+    
     public OrderItem(int saleID, int productID, int amount, boolean isRefunded, double price, double cost){
         this.saleID = saleID;
         this.productID = productID;
@@ -46,7 +47,7 @@ public class OrderItem {
         this.isRefunded = isRefunded;
         this.price = price;
     }
-
+    
     public static double calculateTotalPrice(int saleID){
         SalesDbHelper dbHelper = new SalesDbHelper();
         ArrayList<OrderItem> oi;
@@ -57,5 +58,5 @@ public class OrderItem {
         }
         return sum;
     }
-
+    
 }

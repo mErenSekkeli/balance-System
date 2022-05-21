@@ -1,21 +1,15 @@
-
-import java.sql.SQLException;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.Timestamp;
 
 public class Sale {
     public int ID;
-    //private int key;
     public Timestamp date;
     public double totalPrice;
     public int sellerID;
     public ArrayList<OrderItem> productsOfSale;
     public boolean isDeleted;
-    // private boolean isRefunded
     
     public Sale(int sellerID){
-        // this.ID = ID;    veri tabanından cekilmeli
         this.sellerID = sellerID;
         productsOfSale = new ArrayList<>();
         this.isDeleted = false;
@@ -36,27 +30,50 @@ public class Sale {
         this.isDeleted = isDeleted;
     }
     
-    public boolean addSale(int amount, Product product, int empID){
-        if(product.stock >= amount){
-            OrderItem order = new OrderItem(this.ID, product, amount);
-            this.totalPrice += product.price*amount;
-            productsOfSale.add(order);
-            product.stock -= amount;
-            // increaseSoldCountOfEmployee(amount, empID);
-            return true;
-        }
+    public boolean addSale(){
+        SalesDbHelper dbHelper = new SalesDbHelper();
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        Sale sale = new Sale(now, 0, this.sellerID, false);
+        dbHelper.addSale(sale);
+        
         return false;
     }
-   
     
-    /*
-    Selo Yazacak
-    private void increaseSoldCountOfEmployee(int amount, int empID){
-        String query = "";  
-    } 
-    */
+    public boolean finalizeSale(){
+        SalesDbHelper dbHelper = new SalesDbHelper();
+        double sumOfTotalPrices = 0;
+        for (OrderItem orderItem : this.productsOfSale){
+            sumOfTotalPrices += orderItem.price*orderItem.amount;
+        }
+        
+        this.totalPrice = sumOfTotalPrices;
+        return dbHelper.updatePriceOfSale(this);
+        // call increaseSoldCountOfEmployee
+    }
     
-   
-    
-       
+    public void addOrderItemToSale(OrderItem oi){
+        ProductOperations po = new ProductOperations();
+        SalesDbHelper dbHelper = new SalesDbHelper();
+
+        if(po.checkStock(oi.productID, oi.amount)){
+            oi.saleID = ID;
+            this.productsOfSale.add(oi);
+            dbHelper.addOrderItem(oi);
+            po.decreaseStock(oi.productID, oi.amount);
+        }
+        
+    }
+      
+    public boolean refundOrderItem(int orderItemId, int orderID, int amount){
+        SalesDbHelper dbHelper = new SalesDbHelper();
+        OrderItem prevOi = dbHelper.getOrderItem(orderItemId);
+        Sale sale = dbHelper.getSale(orderID);
+        OrderItem oi = new OrderItem(orderID, prevOi.productID, -1*amount, true, prevOi.price, prevOi.cost);
+        ProductOperations po = new ProductOperations(); 
+        
+        sale.addOrderItemToSale(oi);
+        sale.finalizeSale();
+        
+        return dbHelper.addOrderItem(oi);
+    }
 }

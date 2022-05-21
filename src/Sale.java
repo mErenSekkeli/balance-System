@@ -47,8 +47,8 @@ public class Sale {
         }
         
         this.totalPrice = sumOfTotalPrices;
+        EmployeeManager.increaseSoldCountOfEmployee(this.sellerID);
         return dbHelper.updatePriceOfSale(this);
-        // call increaseSoldCountOfEmployee
     }
     
     public boolean addOrderItemToSale(OrderItem oi){

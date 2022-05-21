@@ -1,8 +1,11 @@
-import com.oracle.truffle.js.builtins.DebugBuiltins;
+
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,8 +24,11 @@ public class EmployeeManager {
     
     
     
-    ArrayList<EmployeeManager> employeeInfo = new ArrayList<>();
+    ArrayList<EmployeeManager> employeeInfo = new ArrayList<>();    
     private static Connector db = DatabaseInstance.getDb();
+    private Connection con=null;
+    private Statement state=null;
+    private PreparedStatement preState=null;
     private static String query="SELECT * FROM employer";
     
     public EmployeeManager(int ID,String name, int workTime, int soldCount, Date hiringTime, Date lastLogin) {
@@ -106,6 +112,23 @@ public class EmployeeManager {
             return null;
         }
         
+    }
+    
+    public void deleteEmployee(int emp_id){
+       try {
+            String sorgu = "DELETE FROM employer WHERE emp_id = ?";
+            db.preState = db.con.prepareStatement(sorgu);
+            db.preState.setInt(1, emp_id);
+            db.preState.executeUpdate();
+            
+            String sorgu2 = "DELETE FROM accounts WHERE account_emp_id = ?";
+            db.preState = db.con.prepareStatement(sorgu2);
+            db.preState.setInt(1, emp_id);
+            db.preState.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
         
     @Override

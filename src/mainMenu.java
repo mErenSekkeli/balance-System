@@ -289,8 +289,10 @@ public class mainMenu extends javax.swing.JFrame {
 
     private void kullanicilistesiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kullanicilistesiActionPerformed
         // TODO add your handling code here:
-
-
+        employeeList lrp = new employeeList();
+        setVisible(false);
+        lrp.setVisible(true);
+        addClosedListenerToFrame(lrp);
     }//GEN-LAST:event_kullanicilistesiActionPerformed
 
     private void satisekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_satisekleActionPerformed

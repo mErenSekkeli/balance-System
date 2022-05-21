@@ -64,6 +64,7 @@ public class analysisEmployeeFrontEnd extends javax.swing.JFrame {
         createExcel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Calisan Analizi");
         setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));

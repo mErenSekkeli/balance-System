@@ -1,25 +1,13 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class SalesDbHelper {
-    Connector db;
+    public static Connector db = new Connector();
     
-    public SalesDbHelper(){
-    this.db = new Connector();
-    }
+    public SalesDbHelper(){}
     
-    public void getItemsOfOrder(Sale s){
-        int id = s.ID;
-        System.out.println(id);
-        // get from OrderProduct where id = id;
-    }
-    /*
-        Database'de bulunan orders tablosundaki tüm verileri çekmeyi sağlar.
-        Geriye ArrayList<Sale>'la bu verileri döner.
-    */
+    // Database'de bulunan orders tablosundaki tüm verileri çekmeyi sağlar. Geriye ArrayList<Sale>'la bu verileri döner.
     public ArrayList<Sale> getAllSales(){
        ArrayList<Sale> sales = new ArrayList<>();
        String query = "SELECT * FROM orders";
@@ -40,15 +28,6 @@ public class SalesDbHelper {
        
        return sales;
     }
-    /*
-    public Iterable<Iterable<? extends CharSequence>> getAllSalesCSVData() {
-        List<Sale> items = getAllSales();
-        List<List<String>> csvTable;
-        List<String> headers = Arrays.asList("", "", );
-        for(Sale saleItem: items) {
-            csvTable.add(Arrays.asList());
-        }
-    }*/
     
     /*
         Parametre olarak gelen sale tipindeki degeri veritabanına yazmayi saglar
@@ -63,9 +42,8 @@ public class SalesDbHelper {
             System.out.println(e);
         }
     }
-   // Şu anda çalışmıyor
+
     public boolean deleteSale(Sale sale){
-        // try catch ile db'ye aktarma yapılacak. return degerleri de buna gore belirlenecek
         sale.isDeleted = true;
         for (OrderItem oi : sale.productsOfSale) {
             oi.product.stock += oi.amount;     
@@ -84,12 +62,11 @@ public class SalesDbHelper {
            db.preState = db.con.prepareStatement(query);
            ResultSet rs = db.preState.executeQuery();
            while(rs.next()){
-                orderItems.add(new OrderItem(rs.getInt("order_items_sales_id"), rs.getInt("order_items_product_id"), rs.getInt("order_items_amount"), rs.getBoolean("order_items_refunded"),rs.getDouble("order_items_price")));
+                orderItems.add(new OrderItem(rs.getInt("order_items_id"),rs.getInt("order_items_sales_id"), rs.getInt("order_items_product_id"), rs.getInt("order_items_amount"), rs.getBoolean("order_items_refunded"),rs.getDouble("order_items_price"),rs.getDouble("order_items_cost")));
            }
        } catch(SQLException e){
            System.out.println(e);
        }
-
        return orderItems;
     }
     
@@ -97,31 +74,126 @@ public class SalesDbHelper {
     public Sale getSale(int saleID){
        Sale sale = null;
        String query;
-       query = "SELECT * FROM orders WHERE orders_id=" + saleID; 
+       query = "SELECT * FROM orders WHERE orders_id=?"; 
        try{
            db.preState = db.con.prepareStatement(query);
+           db.preState.setInt(1, saleID);
            ResultSet rs = db.preState.executeQuery();
            rs.next();
            sale = new Sale(rs.getInt("orders_id"), rs.getTimestamp("orders_timestamp"), rs.getDouble("orders_total_price"), rs.getInt("orders_who_sold"),rs.getBoolean("orders_refunded"));
        } catch(SQLException e){
            System.out.println(e);
        }
-       if(sale != null)
-           System.out.println("Usage For Where Order ID: " + sale.ID + " Tİmestamp: " + sale.date + " Total Price: " + sale.totalPrice + " Seller ID: " + sale.sellerID + " is deleted: " + sale.isDeleted);
        
-       
+       sale.productsOfSale = this.getItemsOfSale(sale.ID);
+      
        return sale;
     }
     
-    // Siparişi iade etmeye çalışır, işlemin başarılı olup olmadığına dair sonuç döndürür.
-    // Şuanda prototip durumda ekledim - Selim
-    // Not: yukarıda bir delete sale fonksiyonu var ama o mu emin olamadım
-    // Bir de sale objesi gerektiriyor, duruma göre bunu silip doğrudan o fonksiyonu
-    // çağrabilirim.
-    public boolean refundSale(int orderId) {
-        return true;
+    public int getSaleID(){
+       int id = -1;
+       String query;
+       query = "SELECT * FROM orders"; 
+       try{
+           db.preState = db.con.prepareStatement(query);
+           ResultSet rs = db.preState.executeQuery();
+           rs.next();
+           while(rs.next())
+               id = rs.getInt("orders_id");  
+       } catch(SQLException e){
+           System.out.println(e);
+       }
+        return id;
     }
     
     
-       // ToDo: add order item to db
+    // bunu iptal yap
+    public boolean refundSale(Sale sale){
+        System.out.println(sale.ID);
+        String query = "UPDATE `orders` SET `orders_refunded`= ?  WHERE `orders_id`=?";
+        try{
+            db.preState = db.con.prepareStatement(query);
+            db.preState.setString(1,"1");
+            db.preState.setInt(2, sale.ID);
+            db.preState.executeUpdate();
+            return true;
+        } catch(SQLException e){
+            System.out.println("SalesDbHelper.updateRefundedStateOfSale()" + e);
+            return false;
+        } 
+    }
+    
+    public boolean updatePriceOfSale(Sale sale){
+        String query = "UPDATE `orders` SET `orders_total_price`=? WHERE `orders_id`=?";
+        try{
+            db.preState = db.con.prepareStatement(query);
+            db.preState.setDouble(1, sale.totalPrice);
+            db.preState.setInt(2,sale.ID);
+            db.preState.executeUpdate();
+            return true;
+        } catch(SQLException e){
+            System.out.println("SalesDbHelper.updateSale()" + e);
+            return false;
+        }
+    }
+    
+    // Sale nesnesi parametre olarak alınıp daha sonra bunun icersindeki items objesine eklenme şeklinde de yapılabilir.
+    public ArrayList<OrderItem> getItemsOfSale(int saleID){
+       ArrayList<OrderItem> oi = new ArrayList<>();
+       String query = "SELECT * FROM order_items WHERE `order_items_sales_id`=?";
+       try{
+           db.preState = db.con.prepareStatement(query);
+           db.preState.setInt(1, saleID);
+           ResultSet rs = db.preState.executeQuery();
+           while(rs.next())
+               oi.add(new OrderItem(rs.getInt("order_items_id"), rs.getInt("order_items_sales_id"), rs.getInt("order_items_product_id"), rs.getInt("order_items_amount") , rs.getBoolean("order_items_refunded"), rs.getDouble("order_items_price"), rs.getDouble("order_items_cost")));
+           
+        } catch(SQLException e){
+           System.out.println(e);
+        }
+       
+       return oi;
+    }
+    
+    public boolean addOrderItem(OrderItem oi){
+        try{
+            String query = "Insert into `order_items` (order_items_sales_id, order_items_product_id, order_items_amount, order_items_refunded, order_items_price, order_items_cost)" + "VALUES(?,?,?,?,?,?)" ;
+            db.preState = db.con.prepareStatement(query);
+            db.preState.setInt(1, oi.saleID);
+            db.preState.setInt(2, oi.productID);
+            db.preState.setInt(3, oi.amount);
+            db.preState.setString(4, (oi.isRefunded) ? "1" : "0");
+            db.preState.setDouble(5, oi.price);
+            db.preState.setDouble(6, oi.cost);
+            db.preState.execute();
+            return true;
+        }catch(SQLException e){
+            System.out.println("addOrderItem(): "+ e);
+            return false;
+        }
+    }
+
+    public OrderItem getOrderItem(int idOfItem){
+        String query;
+        OrderItem oi = null;
+        query = "SELECT * FROM `order_items` WHERE `order_items_id`=?"; 
+        try{
+            db.preState = db.con.prepareStatement(query);
+            db.preState.setInt(1, idOfItem);
+            ResultSet rs = db.preState.executeQuery();
+            while(rs.next())
+                oi = new OrderItem(rs.getInt("order_items_id"), rs.getInt("order_items_sales_id"), rs.getInt("order_items_product_id"), rs.getInt("order_items_amount") , rs.getBoolean("order_items_refunded"), rs.getDouble("order_items_price"), rs.getDouble("order_items_cost"));
+
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+         return oi;
+    }
+    
+    public void deleteSale(int saleId){
+        Sale sale = getSale(saleId);
+        sale.isDeleted = true;
+        refundSale(sale);
+    }
+   
 }

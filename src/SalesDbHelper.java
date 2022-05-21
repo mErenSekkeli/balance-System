@@ -190,10 +190,17 @@ public class SalesDbHelper {
          return oi;
     }
     
-    public void deleteSale(int saleId){
-        Sale sale = getSale(saleId);
-        sale.isDeleted = true;
-        refundSale(sale);
+    public boolean refundOrderItem(int orderItemId, int orderID, int amount){
+        SalesDbHelper dbHelper = new SalesDbHelper();
+        OrderItem prevOi = dbHelper.getOrderItem(orderItemId);
+        Sale sale = dbHelper.getSale(orderID);
+        OrderItem oi = new OrderItem(orderID, prevOi.productID, -1*amount, true, prevOi.price, prevOi.cost);
+        ProductOperations po = new ProductOperations(); 
+        
+        sale.addOrderItemToSale(oi);
+        sale.finalizeSale();
+        
+        return dbHelper.addOrderItem(oi);
     }
    
 }

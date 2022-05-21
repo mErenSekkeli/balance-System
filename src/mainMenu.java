@@ -21,19 +21,30 @@ public class mainMenu extends javax.swing.JFrame {
 
     public void initRole(int account_user_role) {
 
-        if (account_user_role == 2) {
-
-            urunekle.setVisible(false);
+        if (account_user_role == 3) {
+            // Stokçu (?)
+            urunekle.setVisible(true);
+            urunlistesi.setVisible(true);
+            
+            satisgoruntuleiade.setVisible(false);
+            satisekle.setVisible(false);
+            kullanicilistesi.setVisible(false);
             iadeedilenurunlistesi.setVisible(false);
-            urunlistesi.setVisible(false);
             satisozeti.setVisible(false);
-
             satisanalizi.setVisible(false);
             stokanalizi.setVisible(false);
             karanalizi.setVisible(false);
 
-        } else if (account_user_role == 3) {
-
+        } else if (account_user_role == 2) {
+            // Satıcı Personel
+            satisgoruntuleiade.setVisible(true);
+            satisekle.setVisible(true);
+            iadeedilenurunlistesi.setVisible(true);
+            
+            urunekle.setVisible(false);
+            urunlistesi.setVisible(false);
+            kullanicilistesi.setVisible(false);
+            satisozeti.setVisible(false);
             satisanalizi.setVisible(false);
             stokanalizi.setVisible(false);
             karanalizi.setVisible(false);

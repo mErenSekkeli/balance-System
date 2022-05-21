@@ -49,7 +49,7 @@ public class AddProductFrontEnd extends javax.swing.JFrame {
         error_message = new javax.swing.JLabel();
         addProduct1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Urun Ekleme");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -225,7 +225,8 @@ public class AddProductFrontEnd extends javax.swing.JFrame {
     private void addProduct1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProduct1ActionPerformed
         ProductList list = new ProductList();
         setVisible(false);
-        list.listInject();
+        list.setVisible(true);
+        //list.listInject();
     }//GEN-LAST:event_addProduct1ActionPerformed
 
     /**

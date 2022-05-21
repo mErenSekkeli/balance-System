@@ -125,7 +125,7 @@ public class SaleSummaryUI extends javax.swing.JFrame {
         accountCount = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setSize(new java.awt.Dimension(1280, 720));
 
         jLabel1.setText("Giderlerin genel özetini aşağıda görebilirsiniz.");
@@ -300,12 +300,12 @@ public class SaleSummaryUI extends javax.swing.JFrame {
         });
     }
 
-    
+    /*
     public void Inject(){
         java.awt.EventQueue.invokeLater(() -> {
                 new SaleSummaryUI(db).setVisible(true);
             });
-    }
+    }*/
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel accountCount;

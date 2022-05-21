@@ -109,7 +109,7 @@ public class AddOrderPage extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Satış Ekle");
 
         jButton1.setText("Ekle");
@@ -449,12 +449,12 @@ public class AddOrderPage extends javax.swing.JFrame {
         }
     }
     
-    
+    /*
     public void Inject(){
         java.awt.EventQueue.invokeLater(() -> {
                 new AddOrderPage().setVisible(true);
             });
-    }
+    }*/
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

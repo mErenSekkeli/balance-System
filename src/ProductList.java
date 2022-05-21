@@ -35,12 +35,12 @@ public class ProductList extends javax.swing.JFrame {
         allProducts = list.getProductList();
         addProductToTable(allProducts);
     }
-    
+    /*
     public void listInject(){
         java.awt.EventQueue.invokeLater(() -> {
                 new ProductList().setVisible(true);
             });
-    }
+    }*/
     
     //Verilen Listeyi JTable'a ekler
     public void addProductToTable(ArrayList<Product> Products){
@@ -81,8 +81,13 @@ public class ProductList extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         excelButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ürün Listesi");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         product_table.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         product_table.setModel(new javax.swing.table.DefaultTableModel(
@@ -392,6 +397,10 @@ public class ProductList extends javax.swing.JFrame {
             Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_excelButtonActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
 
        
     /**

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,32 +15,41 @@ public class mainMenu extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    
     private ProductOperations pOps;
     private SalesDbHelper orderManager;
     private Connector db;
-    
-    public void initRole(int account_user_role){
-        
-        if(account_user_role == 2){
-            
+
+    public void initRole(int account_user_role) {
+
+        if (account_user_role == 2) {
+
             urunekle.setVisible(false);
             iadeedilenurunlistesi.setVisible(false);
             urunlistesi.setVisible(false);
             satisozeti.setVisible(false);
-            
+
             satisanalizi.setVisible(false);
             stokanalizi.setVisible(false);
             karanalizi.setVisible(false);
-            
-        }
-        else if(account_user_role == 3){
-            
-            
+
+        } else if (account_user_role == 3) {
+
             satisanalizi.setVisible(false);
             stokanalizi.setVisible(false);
             karanalizi.setVisible(false);
         }
+    }
+
+    private void addClosedListenerToFrame(JFrame frame){
+        JFrame menu = this;
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                System.out.println("aaa");
+                menu.setVisible(true);
+            }
+        });
+        
     }
     
     public mainMenu() {
@@ -50,7 +60,6 @@ public class mainMenu extends javax.swing.JFrame {
         initComponents();
         initRole(currentUser.getAccount_role());
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -220,101 +229,111 @@ public class mainMenu extends javax.swing.JFrame {
     private void cikisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cikisActionPerformed
 
         /* Kullanıcıya çıkış yapmak isteyip istemediği JOptionPane olarak tekrar sorulur */
-        Object[] options = { "EVET", "HAYIR" };
-        int response=JOptionPane.showOptionDialog(this, "Çıkış Yapmak İstediğinize Emin Misiniz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
-        if(response == JOptionPane.YES_OPTION){  
+        Object[] options = {"EVET", "HAYIR"};
+        int response = JOptionPane.showOptionDialog(this, "Çıkış Yapmak İstediğinize Emin Misiniz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        if (response == JOptionPane.YES_OPTION) {
             setVisible(false);
-            loginPage log=new loginPage();
-            log.loginInject();
+            loginPage log = new loginPage();
+            log.setVisible(true);
         }
-            
-    }//GEN-LAST:event_cikisActionPerformed
+        
 
+    }//GEN-LAST:event_cikisActionPerformed
+    
     private void urunlistesiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_urunlistesiActionPerformed
-        ProductList list=new ProductList();
+        ProductList list = new ProductList();
         setVisible(false);
-        list.listInject();
+        list.setVisible(true);
+
+        
+        addClosedListenerToFrame(list);
         
     }//GEN-LAST:event_urunlistesiActionPerformed
 
     private void urunekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_urunekleActionPerformed
 
-        AddProductFrontEnd addProductPage=new AddProductFrontEnd();
+        AddProductFrontEnd addProductPage = new AddProductFrontEnd();
         setVisible(false);
-        addProductPage.Inject();
+        addProductPage.setVisible(true);
+        addClosedListenerToFrame(addProductPage);
     }//GEN-LAST:event_urunekleActionPerformed
 
     private void iadeedilenurunlistesiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iadeedilenurunlistesiActionPerformed
         // TODO add your handling code here:
         ListRefundedProductsUI lrp = new ListRefundedProductsUI(orderManager);
         setVisible(false);
-        lrp.Inject();
+        lrp.setVisible(true);
+        addClosedListenerToFrame(lrp);
     }//GEN-LAST:event_iadeedilenurunlistesiActionPerformed
 
     private void satisozetiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_satisozetiActionPerformed
         // TODO add your handling code here:
         SaleSummaryUI lrp = new SaleSummaryUI(db);
         setVisible(false);
-        lrp.Inject();
+        lrp.setVisible(true);
+        addClosedListenerToFrame(lrp);
     }//GEN-LAST:event_satisozetiActionPerformed
 
     private void kullanicilistesiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kullanicilistesiActionPerformed
         // TODO add your handling code here:
-        
-        
+
+
     }//GEN-LAST:event_kullanicilistesiActionPerformed
 
     private void satisekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_satisekleActionPerformed
         // TODO add your handling code here:
         AddOrderPage lrp = new AddOrderPage();
         setVisible(false);
-        lrp.Inject();
+        lrp.setVisible(true);
+        addClosedListenerToFrame(lrp);
     }//GEN-LAST:event_satisekleActionPerformed
 
     private void karanaliziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_karanaliziActionPerformed
         // TODO add your handling code here:
         analysisCostProfitFrontEnd lrp = new analysisCostProfitFrontEnd();
         setVisible(false);
-        lrp.inject();
+        lrp.setVisible(true);
+        addClosedListenerToFrame(lrp);
     }//GEN-LAST:event_karanaliziActionPerformed
 
     private void satisanaliziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_satisanaliziActionPerformed
         // TODO add your handling code here:
         analysisEmployeeFrontEnd lrp = new analysisEmployeeFrontEnd();
         setVisible(false);
-        lrp.inject();
+        lrp.setVisible(true);
+        addClosedListenerToFrame(lrp);
     }//GEN-LAST:event_satisanaliziActionPerformed
 
     private void stokanaliziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stokanaliziActionPerformed
         // TODO add your handling code here:
         analysisStockFrontEnd lrp = new analysisStockFrontEnd();
         setVisible(false);
-        lrp.inject();
+        lrp.setVisible(true);
     }//GEN-LAST:event_stokanaliziActionPerformed
 
     private void satisgoruntuleiadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_satisgoruntuleiadeActionPerformed
         // TODO add your handling code here:
         OrderListForm lrp = new OrderListForm(orderManager, pOps);
         setVisible(false);
-        lrp.Inject();
+        lrp.setVisible(true);
+        addClosedListenerToFrame(lrp);
     }//GEN-LAST:event_satisgoruntuleiadeActionPerformed
-    
-    public void mainInject(){
+
+    public void mainInject() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new mainMenu().setVisible(true);
             }
         });
     }
-    
-    
+
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(() -> {
             new mainMenu().setLocationRelativeTo(null);
             new mainMenu().setVisible(true);
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cikis;
     private javax.swing.JButton iadeedilenurunlistesi;

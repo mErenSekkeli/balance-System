@@ -147,7 +147,8 @@ public class analysisCostProfitFrontEnd extends javax.swing.JFrame {
     }                                           
 
     private void closeTableActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        setVisible(false);
+        //setVisible(false);
+        this.dispose();
     }                                         
 
     // Variables declaration - do not modify                     

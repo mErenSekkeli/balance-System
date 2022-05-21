@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -215,7 +216,14 @@ public class AddProductFrontEnd extends javax.swing.JFrame {
             error_message.setText("Stok Miktari Bos Birakilamaz!");
         }
         else{
-            set.add(name.getText(),Double.parseDouble(price.getText()),Double.parseDouble(cost.getText()),Double.parseDouble(marketPrice.getText()),Integer.parseInt(stock.getText()));
+            boolean result = set.add(name.getText(),Double.parseDouble(price.getText()),Double.parseDouble(cost.getText()),Double.parseDouble(marketPrice.getText()),Integer.parseInt(stock.getText()));
+            
+            if(result) {
+                JOptionPane.showMessageDialog(this, "Ürünler başarıyla eklendi");
+            } else {
+                JOptionPane.showMessageDialog(this, "Ürünler eklenemedi. Bir hata oluştu.");
+            }
+            
         }
     }//GEN-LAST:event_addProductActionPerformed
 
@@ -225,7 +233,7 @@ public class AddProductFrontEnd extends javax.swing.JFrame {
 
     private void addProduct1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProduct1ActionPerformed
         ProductList list = new ProductList();
-        setVisible(false);
+        //setVisible(false);
         list.setVisible(true);
         //list.listInject();
     }//GEN-LAST:event_addProduct1ActionPerformed

@@ -4,13 +4,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class ProductOperations {
     private ResultSet rs=null;
     private static Connector db = DatabaseInstance.getDb();
     
     // Database'e yeni ürün ekler
-    public void add(String name, double price, double cost, double marketPrice, int stock){
+    public boolean add(String name, double price, double cost, double marketPrice, int stock){
         try {
            String query = "Insert into products (product_name, product_price, product_cost, product_market_price, product_stock) VALUES(?,?,?,?,?)";
             db.preState = db.con.prepareStatement(query);
@@ -19,10 +20,14 @@ public class ProductOperations {
             db.preState.setDouble(3, cost);
             db.preState.setDouble(4, marketPrice);
             db.preState.setDouble(5, stock);
-            db.preState.executeUpdate();
+            return db.preState.executeUpdate() > 0;
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return false;
     }
     
     //Database'de verilen ID'li ürünü günceller
@@ -108,17 +113,6 @@ public class ProductOperations {
         }
     }
     
-    //Database'den ürün siler
-    public void remove(int ID){
-        try {
-            String query = "DELETE FROM products WHERE product_id = ?";
-            db.preState = db.con.prepareStatement(query);
-            db.preState.setInt(1, ID);
-            db.preState.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
     //Tüm Ürünleri ArrayListte döndürür
     public ArrayList<Product> getProductList() {

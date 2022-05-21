@@ -156,6 +156,8 @@ public class loginPage extends javax.swing.JFrame {
                 Date date = new Date();    
                 java.sql.Date sDate = new java.sql.Date(date.getTime());
                 
+                EmployeeManager.onLogin(account_emp_id);
+                
                 /* Kullanıcının veritabanındaki accounts tablosundaki id'si aracılığıyla 
                 employer tablosunda tutulan ve en son giriş yaptığı zamanı gösteren sütun güncellenir */
                 query = "UPDATE employer SET emp_last_login = ? where emp_id = ?";

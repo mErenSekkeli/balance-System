@@ -69,6 +69,7 @@ public class employeeList extends javax.swing.JFrame {
         message = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Calisan Listesi");
 
         employeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

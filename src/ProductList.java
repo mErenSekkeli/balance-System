@@ -82,7 +82,7 @@ public class ProductList extends javax.swing.JFrame {
         excelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Ürün Listesi");
+        setTitle("Urun Listesi");
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
         addWindowListener(new java.awt.event.WindowAdapter() {

@@ -90,6 +90,7 @@ public class OrderItemsView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Siparisin Urun Listesi");
         setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
@@ -131,7 +132,7 @@ public class OrderItemsView extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(6).setResizable(false);
         }
 
-        jLabel1.setText("İade edilen ürünlerin listesi aşağıdadır");
+        jLabel1.setText("Ürünlerin listesi aşağıdadır");
 
         jButton2.setText("Ürünü iade et");
         jButton2.addActionListener(new java.awt.event.ActionListener() {

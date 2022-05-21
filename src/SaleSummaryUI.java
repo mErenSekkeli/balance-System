@@ -126,6 +126,7 @@ public class SaleSummaryUI extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Genel Ozet");
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
 

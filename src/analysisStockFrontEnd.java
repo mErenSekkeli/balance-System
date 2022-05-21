@@ -20,13 +20,6 @@ public class analysisStockFrontEnd extends javax.swing.JFrame {
         getStockAnalysis();
     }
     
-    public void inject(){
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new analysisStockFrontEnd().setVisible(true);
-            }
-        });
-    }
 
     public void getStockAnalysis(){
         ArrayList<Product> prList=pr.getProductList();
@@ -54,6 +47,7 @@ public class analysisStockFrontEnd extends javax.swing.JFrame {
         createExcel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Stok Analizi");
         setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
@@ -125,7 +119,7 @@ public class analysisStockFrontEnd extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void createExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createExcelActionPerformed

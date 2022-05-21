@@ -95,6 +95,7 @@ public class mainMenu extends javax.swing.JFrame {
         satisgoruntuleiade = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ana Menu");
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
 
@@ -321,6 +322,7 @@ public class mainMenu extends javax.swing.JFrame {
         analysisStockFrontEnd lrp = new analysisStockFrontEnd();
         setVisible(false);
         lrp.setVisible(true);
+        addClosedListenerToFrame(lrp);
     }//GEN-LAST:event_stokanaliziActionPerformed
 
     private void satisgoruntuleiadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_satisgoruntuleiadeActionPerformed

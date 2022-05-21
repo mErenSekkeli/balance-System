@@ -176,6 +176,12 @@ public class loginPage extends javax.swing.JFrame {
             */
             mainMenu main=new mainMenu();
             setVisible(false);
+            main.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                System.exit(0);
+            }
+            });
             main.mainInject();
            
             

@@ -42,7 +42,13 @@ public class OrderListForm extends javax.swing.JFrame {
     }
     
     public void addOrderToList(Sale order) {
-        getDefaultModel().addRow(new Object[]{order.ID,order.date, order.totalPrice, "Henüz yapılmadı:" + order.sellerID, order.isDeleted});
+        Employee emp = EmployeeManager.getEmployeeFromId(order.sellerID);
+        if(emp == null) 
+        {
+            JOptionPane.showMessageDialog(this, "Ürünleri listelerken bir problem oluştu!");
+            return;
+        }
+        getDefaultModel().addRow(new Object[]{order.ID,order.date, order.totalPrice, emp.name, order.isDeleted});
     }
 
     /**

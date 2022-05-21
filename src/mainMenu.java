@@ -218,7 +218,7 @@ public class mainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cikisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cikisActionPerformed
-        
+
         /* Kullanıcıya çıkış yapmak isteyip istemediği JOptionPane olarak tekrar sorulur */
         Object[] options = { "EVET", "HAYIR" };
         int response=JOptionPane.showOptionDialog(this, "Çıkış Yapmak İstediğinize Emin Misiniz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[0]);

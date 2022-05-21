@@ -18,7 +18,7 @@ public class DatabaseInstance {
     }
     public static void init() {
         if(db != null ) {
-            System.out.println("error");
+            //System.out.println("error");
         } else {
             db = new Connector();
         }

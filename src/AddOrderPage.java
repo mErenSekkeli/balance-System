@@ -29,8 +29,6 @@ public class AddOrderPage extends javax.swing.JFrame {
      * Creates new form AddOrderPage
      */
     public AddOrderPage() {
-        // Account currentUser = new Account();
-        //int id = currentUser.getAccount_id();
         SalesDbHelper dbHelper = new SalesDbHelper();        
         initComponents();
         initTables();
@@ -38,9 +36,9 @@ public class AddOrderPage extends javax.swing.JFrame {
         items = new ArrayList<>();
         setTotalPriceTextAreaContent();
         getCartDatas();
-        // sale = new Sale(currentUser.getAccount_id());
-        sale = new Sale(75);
+        sale = new Sale(currentUser.getAccount_id());
         sale.addSale();
+        
         saleID = dbHelper.getSaleID();
         System.out.println("AddOrderPage.<init>(): " + saleID);
         sale.ID = saleID;

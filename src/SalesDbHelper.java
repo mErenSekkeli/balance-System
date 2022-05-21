@@ -186,7 +186,6 @@ public class SalesDbHelper {
             ResultSet rs = db.preState.executeQuery();
             while(rs.next())
                 oi = new OrderItem(rs.getInt("order_items_id"), rs.getInt("order_items_sales_id"), rs.getInt("order_items_product_id"), rs.getInt("order_items_amount") , rs.getBoolean("order_items_refunded"), rs.getDouble("order_items_price"), rs.getDouble("order_items_cost"));
-
         } catch(SQLException e){
             System.out.println(e);
         }

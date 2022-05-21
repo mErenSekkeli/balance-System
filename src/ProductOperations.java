@@ -64,8 +64,8 @@ public class ProductOperations {
             db.preState.setInt(1, ID);
          
             rs=db.preState.executeQuery();
-            while(rs.next()){
-                bool = rs.getInt("product_stock")>amount;
+            if(rs.next()){
+                bool = rs.getInt("product_stock")>=amount;
             }
         } catch (SQLException ex) {
             Logger.getLogger(analysisCostProfit.class.getName()).log(Level.SEVERE, null, ex);

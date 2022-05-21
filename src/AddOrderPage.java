@@ -41,7 +41,6 @@ public class AddOrderPage extends javax.swing.JFrame {
         // sale = new Sale(currentUser.getAccount_id());
         sale = new Sale(75);
         sale.addSale();
-        //sale.refundOrderItem(76,1,1);
         saleID = dbHelper.getSaleID();
         System.out.println("AddOrderPage.<init>(): " + saleID);
         sale.ID = saleID;
@@ -282,12 +281,14 @@ public class AddOrderPage extends javax.swing.JFrame {
         o.saleID = saleID;
         item = o;
         items.add(o);
+        System.out.println(item.productID);
         getCartDatas();
         setTotalPriceTextAreaContent();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(!items.isEmpty()){
+            printList();
             for(OrderItem oi: items){
                 sale.addOrderItemToSale(oi);
             }
@@ -377,7 +378,7 @@ public class AddOrderPage extends javax.swing.JFrame {
     
     private void setProductNameTextAreaContent(){
         jTextArea1.setText(getNameOfSelectedProduct());
-        SpinnerModel sm = new SpinnerNumberModel(1, 1, getSelectedProduct().stock, 1);
+        SpinnerModel sm = new SpinnerNumberModel(0, 1, getSelectedProduct().stock, 1);
         jSpinner1.setModel(sm);
     }
     
@@ -442,6 +443,12 @@ public class AddOrderPage extends javax.swing.JFrame {
             if(response == JOptionPane.YES_OPTION){  
                 
             }
+    }
+    
+    public void printList(){
+        for (OrderItem item1 : items) {
+            System.out.println(item1.productID);
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

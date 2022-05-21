@@ -23,10 +23,6 @@ public class SalesDbHelper {
            System.out.println(e);
        }
        
-       for(int i=0; i<sales.size(); i++){
-           Sale sale = sales.get(i);
-           System.out.println(" Order ID: " + sale.ID + " Tİmestamp: " + sale.date + " Total Price: " + sale.totalPrice + " Seller ID: " + sale.sellerID + " is deleted: " + sale.isDeleted);
-       }
        
        return sales;
     }

@@ -51,8 +51,5 @@ public class currentUser{
         }
     }
     
-    public static void main(String args[]) {
-        System.out.println(currentUser.getAccount_id());
-    }
     
 }

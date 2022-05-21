@@ -12,7 +12,8 @@ import java.sql.SQLException;
  */
 public class currentUser{
 
-    private static Connector db=new Connector();
+    private static Connector db = DatabaseInstance.getDb();
+   
 
     public static int getAccount_id(){
         try{

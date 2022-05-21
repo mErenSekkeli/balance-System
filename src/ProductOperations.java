@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class ProductOperations {
     private ResultSet rs=null;
-    private static Connector db=new Connector();
+    private static Connector db = DatabaseInstance.getDb();
     
     // Database'e yeni ürün ekler
     public void add(String name, double price, double cost, double marketPrice, int stock){

@@ -451,6 +451,14 @@ public class AddOrderPage extends javax.swing.JFrame {
         }
     }
     
+    
+    public void Inject(){
+        java.awt.EventQueue.invokeLater(() -> {
+                new AddOrderPage().setVisible(true);
+            });
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

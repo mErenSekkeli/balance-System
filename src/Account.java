@@ -24,7 +24,7 @@ public class Account {
     public int account_role;
 
     ArrayList<Account> AccountInfo = new ArrayList<>();
-    private static Connector db=new Connector();
+    private static Connector db = DatabaseInstance.getDb();
     private String query="SELECT * FROM accounts where account_enabled = 1";
     
 //Boş Constructor

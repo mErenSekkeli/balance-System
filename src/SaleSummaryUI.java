@@ -300,6 +300,13 @@ public class SaleSummaryUI extends javax.swing.JFrame {
         });
     }
 
+    
+    public void Inject(){
+        java.awt.EventQueue.invokeLater(() -> {
+                new SaleSummaryUI(db).setVisible(true);
+            });
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel accountCount;
     private javax.swing.JLabel jLabel1;

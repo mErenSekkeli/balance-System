@@ -156,6 +156,12 @@ public class ListRefundedProductsUI extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void Inject(){
+        java.awt.EventQueue.invokeLater(() -> {
+                new ListRefundedProductsUI(this.orderManager).setVisible(true);
+            });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

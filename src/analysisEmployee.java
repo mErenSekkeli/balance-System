@@ -7,20 +7,20 @@ import java.util.HashMap;
  * @author MUHAMMEDERENŞEKKELİ
  */
 public class analysisEmployee {
-   private static Employee emp;
+   private static EmployeeManager emp;
    private static Account acc;
 
     public analysisEmployee() {
-        emp=new Employee();
+        emp=new EmployeeManager();
         acc=new Account();
     }
 
    public static HashMap<Integer,String> getEmployeeSold(){
-      ArrayList<Employee> empList=emp.prepareEmployee();
+      ArrayList<EmployeeManager> empList=emp.prepareEmployee();
       ArrayList<Account> accList=acc.prepareAccount();
       analysisProductStock anstock=new analysisProductStock();
        HashMap<Integer,String> commonEmp=new HashMap<>();
-      for(Employee e : empList){
+      for(EmployeeManager e : empList){
           for(Account a : accList){
               if(e.ID==a.account_emp_id){
                   if(a.account_role==2){
@@ -57,11 +57,11 @@ public class analysisEmployee {
    }
    
    public static ArrayList<String> getEmpWork(){
-       ArrayList<Employee> empList=emp.prepareEmployee();
+       ArrayList<EmployeeManager> empList=emp.prepareEmployee();
        analysisProductStock anstock=new analysisProductStock();
        ArrayList<String> commonEmpWork=new ArrayList<>();
        
-       for(Employee e : empList){
+       for(EmployeeManager e : empList){
            long dateDiff=anstock.timeDifferrence(e.hiringTime);
            long tmp=dateDiff/7;
            while(tmp>0){

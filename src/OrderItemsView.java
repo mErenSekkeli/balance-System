@@ -205,7 +205,7 @@ public class OrderItemsView extends javax.swing.JFrame {
             return;
         }
         
-        if(orderManager.refundItem(orderItemId, orderId, amount)){
+        if(orderManager.refundOrderItem(orderItemId, orderId, amount)){
             JOptionPane.showMessageDialog(this, "Ürün(ler) başarıyla iade edildi.");
             loadOrderItems();
         } else {

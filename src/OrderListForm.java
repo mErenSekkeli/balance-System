@@ -232,6 +232,13 @@ public class OrderListForm extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void Inject(){
+        java.awt.EventQueue.invokeLater(() -> {
+                new OrderListForm(orderManager, pOps).setVisible(true);
+            });
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

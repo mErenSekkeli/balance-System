@@ -21,7 +21,7 @@ public class registerPage extends javax.swing.JFrame {
         initComponents();    } 
     
     
-    private static Connector db=new Connector();
+    private static Connector db = DatabaseInstance.getDb();
     private String query = "INSERT INTO accounts(account_email, account_password_hash, account_role) VALUES (?, ?, ?)";
     
     @SuppressWarnings("unchecked")

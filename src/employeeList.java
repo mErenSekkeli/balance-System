@@ -10,8 +10,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
-
 /**
  *
  * @author MUHAMMEDERENŞEKKELİ
@@ -56,6 +54,16 @@ public class employeeList extends javax.swing.JFrame {
         }
         
     }
+    
+    public DefaultTableModel getDefaultModel() {
+        return (DefaultTableModel) employeeTable.getModel();
+    }
+    
+    public void clearTable(){
+        while(getDefaultModel().getRowCount()>0){
+            getDefaultModel().removeRow(0);
+        }
+    }
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -68,7 +76,7 @@ public class employeeList extends javax.swing.JFrame {
         close = new javax.swing.JButton();
         message = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         employeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -159,6 +167,10 @@ public class employeeList extends javax.swing.JFrame {
                 Color color=new Color(3,119,26);
                 message.setForeground(color);
                 message.setText("Çalışan Silindi!");
+                clearTable();
+                emps=new EmployeeManager();
+                acc=new Account();
+                getEmployees();
             }
         }else{
             Object[] opt={"Tamam"};
@@ -176,7 +188,7 @@ public class employeeList extends javax.swing.JFrame {
     }//GEN-LAST:event_createExcelActionPerformed
 
     private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
-        this.dispose();
+        this.setVisible(false);
     }//GEN-LAST:event_closeActionPerformed
 
     /**

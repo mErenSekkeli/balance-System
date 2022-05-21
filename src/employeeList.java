@@ -68,7 +68,7 @@ public class employeeList extends javax.swing.JFrame {
         close = new javax.swing.JButton();
         message = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         employeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,7 +176,7 @@ public class employeeList extends javax.swing.JFrame {
     }//GEN-LAST:event_createExcelActionPerformed
 
     private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_closeActionPerformed
 
     /**

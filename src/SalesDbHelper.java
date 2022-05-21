@@ -198,7 +198,7 @@ public class SalesDbHelper {
         Sale sale = dbHelper.getSale(orderID);
         OrderItem oi = new OrderItem(orderID, prevOi.productID, -1*amount, true, prevOi.price, prevOi.cost);
         boolean result = sale.addOrderItemToSale(oi);
-  
+        
         dbHelper.updateAmountOfItem(prevOi.ID, amount);
         sale.finalizeSale();
         

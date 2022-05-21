@@ -42,10 +42,11 @@ public class OrderListForm extends javax.swing.JFrame {
     }
     
     public void addOrderToList(Sale order) {
+
         Employee emp = EmployeeManager.getEmployeeFromId(order.sellerID);
         if(emp == null) 
         {
-            JOptionPane.showMessageDialog(this, "Ürünleri listelerken bir problem oluştu!");
+            JOptionPane.showMessageDialog(this, "Siparişleri listelerken bir problem oluştu!");
             return;
         }
         getDefaultModel().addRow(new Object[]{order.ID,order.date, order.totalPrice, emp.name, order.isDeleted});
@@ -105,7 +106,7 @@ public class OrderListForm extends javax.swing.JFrame {
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.getAccessibleContext().setAccessibleName("orderTable");
 
-        jButton1.setText("Siparişi detayları/iade");
+        jButton1.setText("Sipariş detayları/iade");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -175,7 +176,7 @@ public class OrderListForm extends javax.swing.JFrame {
         JFrame orderDetails = new OrderItemsView(orderManager, pOps, orderId);
         
         orderDetails.setVisible(true);
-        
+          
         /*
         if(orderManager.refundSale(orderId)) {
             JOptionPane.showMessageDialog(this, "Sipariş başarıyla silindi.");

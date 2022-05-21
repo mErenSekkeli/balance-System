@@ -10,8 +10,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
-
 /**
  *
  * @author MUHAMMEDERENŞEKKELİ
@@ -55,6 +53,16 @@ public class employeeList extends javax.swing.JFrame {
             }
         }
         
+    }
+    
+    public DefaultTableModel getDefaultModel() {
+        return (DefaultTableModel) employeeTable.getModel();
+    }
+    
+    public void clearTable(){
+        while(getDefaultModel().getRowCount()>0){
+            getDefaultModel().removeRow(0);
+        }
     }
    
     @SuppressWarnings("unchecked")
@@ -159,6 +167,10 @@ public class employeeList extends javax.swing.JFrame {
                 Color color=new Color(3,119,26);
                 message.setForeground(color);
                 message.setText("Çalışan Silindi!");
+                clearTable();
+                emps=new EmployeeManager();
+                acc=new Account();
+                getEmployees();
             }
         }else{
             Object[] opt={"Tamam"};

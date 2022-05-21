@@ -198,13 +198,12 @@ public class SalesDbHelper {
         OrderItem prevOi = dbHelper.getOrderItem(orderItemId);
         Sale sale = dbHelper.getSale(orderID);
         OrderItem oi = new OrderItem(orderID, prevOi.productID, -1*amount, true, prevOi.price, prevOi.cost);
-        ProductOperations po = new ProductOperations(); 
-        
-        sale.addOrderItemToSale(oi);
+        boolean result = sale.addOrderItemToSale(oi);
+  
         dbHelper.updateAmountOfItem(prevOi.ID, amount);
         sale.finalizeSale();
         
-        return dbHelper.addOrderItem(oi);
+        return result;
     }
     
     private void updateAmountOfItem(int ID, int amount){
@@ -216,6 +215,7 @@ public class SalesDbHelper {
             db.preState.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
-        }  }
+        }
+    }
    
 }

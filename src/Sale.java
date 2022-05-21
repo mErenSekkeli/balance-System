@@ -51,7 +51,7 @@ public class Sale {
         // call increaseSoldCountOfEmployee
     }
     
-    public void addOrderItemToSale(OrderItem oi){
+    public boolean addOrderItemToSale(OrderItem oi){
         ProductOperations po = new ProductOperations();
         SalesDbHelper dbHelper = new SalesDbHelper();
 
@@ -60,8 +60,11 @@ public class Sale {
             this.productsOfSale.add(oi);
             dbHelper.addOrderItem(oi);
             po.decreaseStock(oi.productID, oi.amount);
+            
+            return true;
         }
         
+        return false;
     }
       
 }

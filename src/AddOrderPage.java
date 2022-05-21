@@ -111,6 +111,9 @@ public class AddOrderPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Satış Ekle");
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        setResizable(false);
+        setSize(new java.awt.Dimension(1280, 720));
 
         jButton1.setText("Ekle");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

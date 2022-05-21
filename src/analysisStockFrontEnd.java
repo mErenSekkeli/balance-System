@@ -53,8 +53,10 @@ public class analysisStockFrontEnd extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         createExcel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1280, 720));
+        setResizable(false);
+        setSize(new java.awt.Dimension(1280, 720));
 
         stockTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

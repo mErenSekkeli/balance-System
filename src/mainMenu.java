@@ -95,6 +95,7 @@ public class mainMenu extends javax.swing.JFrame {
         satisgoruntuleiade = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
 
         cikis.setText("Çıkış Yap");

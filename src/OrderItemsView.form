@@ -84,7 +84,7 @@
               <Table columnCount="7" rowCount="0">
                 <Column editable="false" title="ID" type="java.lang.Integer"/>
                 <Column editable="false" title="Sipari&#x15f; Kimli&#x11f;i" type="java.lang.Integer"/>
-                <Column editable="false" title="&#xdc;r&#xfc;n Kimli&#x11f;i" type="java.lang.Integer"/>
+                <Column editable="false" title="&#xdc;r&#xfc;n Ad&#x131;" type="java.lang.Integer"/>
                 <Column editable="false" title="Adet" type="java.lang.Integer"/>
                 <Column editable="false" title="Fiyat" type="java.lang.Integer"/>
                 <Column editable="false" title="Maliyet" type="java.lang.Integer"/>

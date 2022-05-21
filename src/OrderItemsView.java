@@ -2,6 +2,8 @@
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.InputVerifier;
@@ -30,28 +32,46 @@ public class OrderItemsView extends javax.swing.JFrame {
     private static final int REFUNDED_COLUMN = 6;
     int orderId;
     private SalesDbHelper orderManager;
-    public OrderItemsView(SalesDbHelper orderManager, int orderId) {
+    private ProductOperations pOps;
+    Map<Integer, Product> products;
+    public OrderItemsView(SalesDbHelper orderManager, ProductOperations pOps, int orderId) {
         this.orderId = orderId;
         this.orderManager = orderManager;
+        this.pOps = pOps;
+        products = new HashMap<>();
         initComponents();
         
         loadOrderItems();
     }
     
     private void loadOrderItems() {
+        products.clear();
+        
         getDefaultModel().setRowCount(0);
         ArrayList<OrderItem> items = orderManager.getItemsOfSale(orderId);
+        int[] ids = new int[items.size()];
+        int index = 0;
          
-        items.stream().forEach(item -> {
-            addItemToList(item);    
-        });
+        for(OrderItem item: items) {
+            ids[index] = item.productID;
+            index++;
+        }
+        ArrayList<Product> prods;
+        prods = pOps.getProductsById(ids);
+        
+        int i = 0;
+        for(OrderItem item: items) {
+            products.put(item.ID, prods.get(i));
+            addItemToList(item);   
+            i++;
+        }
     }
 
     public DefaultTableModel getDefaultModel() {
         return (DefaultTableModel) jTable1.getModel();
     }
     private void addItemToList(OrderItem item) {
-        getDefaultModel().addRow(new Object[]{item.ID, item.saleID, item.productID, item.amount, item.price, item.cost, item.isRefunded});
+        getDefaultModel().addRow(new Object[]{item.ID, item.saleID, products.get(item.ID).name, item.amount, item.price, item.cost, item.isRefunded});
    }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,7 +98,7 @@ public class OrderItemsView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Sipariş Kimliği", "Ürün Kimliği", "Adet", "Fiyat", "Maliyet", "İade Edildi"
+                "ID", "Sipariş Kimliği", "Ürün Adı", "Adet", "Fiyat", "Maliyet", "İade Edildi"
             }
         ) {
             Class[] types = new Class [] {
@@ -226,7 +246,7 @@ public class OrderItemsView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new OrderItemsView(new SalesDbHelper(), 1).setVisible(true);
+                new OrderItemsView(new SalesDbHelper(), new ProductOperations(), 1).setVisible(true);
             }
         });
     }

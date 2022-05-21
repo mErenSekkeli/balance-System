@@ -1,6 +1,8 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SalesDbHelper {
     public static Connector db = new Connector();
@@ -72,20 +74,21 @@ public class SalesDbHelper {
     
     //Kendisine parametre olarak verilen saleID sine sahip sale'i bulup bunu döndürür.
     public Sale getSale(int saleID){
-       Sale sale = null;
-       String query;
-       query = "SELECT * FROM orders WHERE orders_id=?"; 
-       try{
-           db.preState = db.con.prepareStatement(query);
-           db.preState.setInt(1, saleID);
-           ResultSet rs = db.preState.executeQuery();
-           rs.next();
-           sale = new Sale(rs.getInt("orders_id"), rs.getTimestamp("orders_timestamp"), rs.getDouble("orders_total_price"), rs.getInt("orders_who_sold"),rs.getBoolean("orders_refunded"));
-       } catch(SQLException e){
-           System.out.println(e);
-       }
+        Sale sale = null;
+        String query;
+        query = "SELECT * FROM orders WHERE orders_id=?"; 
+        try{
+            db.preState = db.con.prepareStatement(query);
+            db.preState.setInt(1, saleID);
+            ResultSet rs = db.preState.executeQuery();
+            rs.next();
+            sale = new Sale(rs.getInt("orders_id"), rs.getTimestamp("orders_timestamp"), rs.getDouble("orders_total_price"), rs.getInt("orders_who_sold"),rs.getBoolean("orders_refunded"));
+        } catch(SQLException e){
+            System.out.println(e);
+        }
        
-       sale.productsOfSale = this.getItemsOfSale(sale.ID);
+       if(sale != null)
+           sale.productsOfSale = this.getItemsOfSale(sale.ID);
       
        return sale;
     }
@@ -195,12 +198,24 @@ public class SalesDbHelper {
         OrderItem prevOi = dbHelper.getOrderItem(orderItemId);
         Sale sale = dbHelper.getSale(orderID);
         OrderItem oi = new OrderItem(orderID, prevOi.productID, -1*amount, true, prevOi.price, prevOi.cost);
-        ProductOperations po = new ProductOperations(); 
-        
-        sale.addOrderItemToSale(oi);
+        boolean result = sale.addOrderItemToSale(oi);
+  
+        dbHelper.updateAmountOfItem(prevOi.ID, amount);
         sale.finalizeSale();
         
-        return dbHelper.addOrderItem(oi);
+        return result;
+    }
+    
+    private void updateAmountOfItem(int ID, int amount){
+        try {
+           String query = "UPDATE order_items SET order_items_amount = order_items_amount-? WHERE order_items_id = ?";
+            db.preState = db.con.prepareStatement(query);
+            db.preState.setInt(1, amount);
+            db.preState.setInt(2, ID);
+            db.preState.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
    
 }

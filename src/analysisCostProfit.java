@@ -1,7 +1,6 @@
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,10 +11,14 @@ import java.util.logging.Logger;
 public class analysisCostProfit {
     //Tools
     private static Connector db=new Connector();
-    private static String query="SELECT * FROM products";
+    private String query="SELECT * FROM products";
+
+    public analysisCostProfit() {
+    }
+    
     
     //Bu Fonksiyonun Amacı Her Bir Üründen Elde Edilen Karı ArrayListte Integer Tipinde ArrayList Döndürür
-    public static ArrayList<Integer> getProfitOfProduct(){
+    public ArrayList<Integer> getProfitOfProduct(){
         
         ArrayList<Integer> profit=new ArrayList<>();
         
@@ -36,7 +39,7 @@ public class analysisCostProfit {
     }
     
     //Bu Fonksiyonun Amacı Her Bir Üründen Elde Edilen Kar Oranını ArrayListte Float Tipinde ArrayList Döndürür
-    public static ArrayList<Float> getProfitRateOfProduct(){
+    public ArrayList<Float> getProfitRateOfProduct(){
         
         ArrayList<Float> profitRate=new ArrayList<>();
         
@@ -57,7 +60,7 @@ public class analysisCostProfit {
     }
     
     //Bu Fonksiyonun Amacı Her Bir Üründen Elde Edilen Kar Oranını Yorumlayarak String Tipinde ArrayList Döndürür
-    public static ArrayList<String> commentProfitRate(ArrayList<Float> profitRate){
+    public ArrayList<String> commentProfitRate(ArrayList<Float> profitRate){
         ArrayList<String> prNames=new ArrayList<>();
         ArrayList<Float> prMarketDifference=new ArrayList<>();
         ArrayList<String> commentResult=new ArrayList<>();
@@ -82,10 +85,10 @@ public class analysisCostProfit {
                 commentResult.add(i, prNames.get(i)+" İsimli Ürününüzden Zarar Etmektesiniz! Zarar Etmemek İçin Ürünün Fiyatını En Az "+(prCost.get(i))
                 +" TL Yapmalısınız.");
             }else if(prMarketDifference.get(i)<0){
-                commentResult.add(i, prNames.get(i)+" İsimli Ürününden Elde Edilen Kar, Pazar Geneli Elde Edilen Kardan %"+(-prMarketDifference.get(i))+" Daha Düşük."
+                commentResult.add(i, prNames.get(i)+" İsimli Ürününden Elde Edilen Kar, Pazar Geneli Elde Edilen Kardan %"+(String.format("%.2f", -prMarketDifference.get(i)))+" Daha Düşük."
                         + " Daha İyi Rekabet İçin Fiyat Artışı Yapabilirsiniz.");
             }else if(prMarketDifference.get(i)>0){
-                commentResult.add(i, prNames.get(i)+" İsimli Ürününden Elde Edilen Kar, Pazar Geneli Elde Edilen Kardan %"+(prMarketDifference.get(i))+" Daha Yüksek."
+                commentResult.add(i, prNames.get(i)+" İsimli Ürününden Elde Edilen Kar, Pazar Geneli Elde Edilen Kardan %"+(String.format("%.2f", prMarketDifference.get(i)))+" Daha Yüksek."
                         + " Daha İyi Rekabet İçin Fiyat İndirimi Yapabilirsiniz.");
             }else{
                 commentResult.add(i, prNames.get(i)+" İsimli Ürününüzün Satış Fiyatı Pazar Geneli Satış Fiyatıyla Aynı. Daha İyi Rekabet İçin Fiyatı Koruyabilirsiniz.");

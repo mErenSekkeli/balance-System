@@ -12,7 +12,8 @@ import java.sql.SQLException;
  */
 public class currentUser{
 
-    private static Connector db=new Connector();
+    private static Connector db = DatabaseInstance.getDb();
+   
 
     public static int getAccount_id(){
         try{
@@ -50,8 +51,5 @@ public class currentUser{
         }
     }
     
-    public static void main(String args[]) {
-        System.out.println(currentUser.getAccount_id());
-    }
     
 }

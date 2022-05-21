@@ -21,7 +21,7 @@ public class registerPage extends javax.swing.JFrame {
         initComponents();    } 
     
     
-    private static Connector db=new Connector();
+    private static Connector db = DatabaseInstance.getDb();
     private String query = "INSERT INTO accounts(account_email, account_password_hash, account_role) VALUES (?, ?, ?)";
     
     @SuppressWarnings("unchecked")
@@ -266,7 +266,7 @@ public class registerPage extends javax.swing.JFrame {
                     
                         setVisible(false);
                         loginPage log=new loginPage();
-                        log.loginInject();
+                        log.setVisible(true);
                         timer.stop();
                 }
                 
@@ -309,7 +309,7 @@ public class registerPage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         setVisible(false);
         loginPage log=new loginPage();
-        log.loginInject();
+        log.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 public void registerInject(){
             java.awt.EventQueue.invokeLater(() -> {

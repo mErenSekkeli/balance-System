@@ -56,7 +56,7 @@ public class ListRefundedProductsUI extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setSize(new java.awt.Dimension(1280, 720));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -156,6 +156,12 @@ public class ListRefundedProductsUI extends javax.swing.JFrame {
             }
         });
     }
+    /*
+    public void Inject(){
+        java.awt.EventQueue.invokeLater(() -> {
+                new ListRefundedProductsUI(this.orderManager).setVisible(true);
+            });
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

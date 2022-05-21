@@ -13,12 +13,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class analysisEmployeeFrontEnd extends javax.swing.JFrame {
 
-    private Employee emp;
+    private EmployeeManager emp;
     private analysisEmployee anEmp;
     
     public analysisEmployeeFrontEnd() {
         initComponents();
-        emp=new Employee();
+        emp=new EmployeeManager();
         anEmp=new analysisEmployee();
         getWorkAnalysis();
     }
@@ -34,10 +34,10 @@ public class analysisEmployeeFrontEnd extends javax.swing.JFrame {
     public void getWorkAnalysis(){
         ArrayList<String> empWorkList=anEmp.getEmpWork();
         HashMap<Integer, String> empSaleList=anEmp.getEmployeeSold();
-        ArrayList<Employee> empList=emp.prepareEmployee();
+        ArrayList<EmployeeManager> empList=emp.prepareEmployee();
         DefaultTableModel table=(DefaultTableModel) workerTable.getModel();
         int i=0;
-        for(Employee e: empList){
+        for(EmployeeManager e: empList){
             String[] tmp=new String[5];
             tmp[0]=Integer.toString(++i);
             tmp[1]=e.name;

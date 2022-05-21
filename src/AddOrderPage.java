@@ -29,8 +29,6 @@ public class AddOrderPage extends javax.swing.JFrame {
      * Creates new form AddOrderPage
      */
     public AddOrderPage() {
-        // Account currentUser = new Account();
-        //int id = currentUser.getAccount_id();
         SalesDbHelper dbHelper = new SalesDbHelper();        
         initComponents();
         initTables();
@@ -38,10 +36,9 @@ public class AddOrderPage extends javax.swing.JFrame {
         items = new ArrayList<>();
         setTotalPriceTextAreaContent();
         getCartDatas();
-        // sale = new Sale(currentUser.getAccount_id());
-        sale = new Sale(75);
+        sale = new Sale(currentUser.getAccount_id());
         sale.addSale();
-        //sale.refundOrderItem(76,1,1);
+        
         saleID = dbHelper.getSaleID();
         System.out.println("AddOrderPage.<init>(): " + saleID);
         sale.ID = saleID;
@@ -112,7 +109,7 @@ public class AddOrderPage extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Satış Ekle");
 
         jButton1.setText("Ekle");
@@ -282,12 +279,14 @@ public class AddOrderPage extends javax.swing.JFrame {
         o.saleID = saleID;
         item = o;
         items.add(o);
+        System.out.println(item.productID);
         getCartDatas();
         setTotalPriceTextAreaContent();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(!items.isEmpty()){
+            printList();
             for(OrderItem oi: items){
                 sale.addOrderItemToSale(oi);
             }
@@ -377,7 +376,7 @@ public class AddOrderPage extends javax.swing.JFrame {
     
     private void setProductNameTextAreaContent(){
         jTextArea1.setText(getNameOfSelectedProduct());
-        SpinnerModel sm = new SpinnerNumberModel(1, 1, getSelectedProduct().stock, 1);
+        SpinnerModel sm = new SpinnerNumberModel(0, 1, getSelectedProduct().stock, 1);
         jSpinner1.setModel(sm);
     }
     
@@ -443,6 +442,20 @@ public class AddOrderPage extends javax.swing.JFrame {
                 
             }
     }
+    
+    public void printList(){
+        for (OrderItem item1 : items) {
+            System.out.println(item1.productID);
+        }
+    }
+    
+    /*
+    public void Inject(){
+        java.awt.EventQueue.invokeLater(() -> {
+                new AddOrderPage().setVisible(true);
+            });
+    }*/
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

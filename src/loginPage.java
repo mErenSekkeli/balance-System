@@ -14,7 +14,7 @@ public class loginPage extends javax.swing.JFrame {
         initComponents();
     }
     
-    private static Connector db=new Connector();
+    private static Connector db = DatabaseInstance.getDb();
     
     private String query;
 
@@ -32,7 +32,7 @@ public class loginPage extends javax.swing.JFrame {
         info_message = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Kullanici Girisi");
         setPreferredSize(new java.awt.Dimension(1280, 720));
         setSize(new java.awt.Dimension(1280, 720));
@@ -189,13 +189,13 @@ public class loginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_user_loginBTNActionPerformed
     
     /* Giriş yapma ekranına yönlendirme yapmak isteyen sayfalar için inject metodu tanımlanır */
-    public void loginInject(){
+    /*public void loginInject(){
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new loginPage().setVisible(true);
             }
         });
-    }
+    }*/
     
     /* Kayıt olma ekranına yönlendirme metodu */
     private void user_registerBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_registerBTNActionPerformed

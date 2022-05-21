@@ -22,7 +22,7 @@ public class EmployeeManager {
     
     
     ArrayList<EmployeeManager> employeeInfo = new ArrayList<>();
-    private static Connector db=new Connector();
+    private static Connector db = DatabaseInstance.getDb();
     private static String query="SELECT * FROM employer";
     
     public EmployeeManager(int ID,String name, int workTime, int soldCount, Date hiringTime, Date lastLogin) {

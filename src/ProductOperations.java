@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class ProductOperations {
     private ResultSet rs=null;
-    private static Connector db=new Connector();
+    private static Connector db = DatabaseInstance.getDb();
     
     // Database'e yeni ürün ekler
     public void add(String name, double price, double cost, double marketPrice, int stock){
@@ -64,8 +64,8 @@ public class ProductOperations {
             db.preState.setInt(1, ID);
          
             rs=db.preState.executeQuery();
-            while(rs.next()){
-                bool = rs.getInt("product_stock")>amount;
+            if(rs.next()){
+                bool = rs.getInt("product_stock")>=amount;
             }
         } catch (SQLException ex) {
             Logger.getLogger(analysisCostProfit.class.getName()).log(Level.SEVERE, null, ex);

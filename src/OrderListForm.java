@@ -68,7 +68,7 @@ public class OrderListForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
@@ -232,6 +232,13 @@ public class OrderListForm extends javax.swing.JFrame {
             }
         });
     }
+    /*
+    public void Inject(){
+        java.awt.EventQueue.invokeLater(() -> {
+                new OrderListForm(orderManager, pOps).setVisible(true);
+            });
+    }*/
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

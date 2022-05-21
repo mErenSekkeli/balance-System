@@ -36,11 +36,12 @@ public class AddOrderPage extends javax.swing.JFrame {
         initTables();
         getProductTableDatas();
         items = new ArrayList<>();
+        setTotalPriceTextAreaContent();
         getCartDatas();
         // sale = new Sale(currentUser.getAccount_id());
         sale = new Sale(75);
         sale.addSale();
-        sale.refundOrderItem(76,1,1);
+        //sale.refundOrderItem(76,1,1);
         saleID = dbHelper.getSaleID();
         System.out.println("AddOrderPage.<init>(): " + saleID);
         sale.ID = saleID;
@@ -70,8 +71,8 @@ public class AddOrderPage extends javax.swing.JFrame {
     }
     
     public void getProductTableDatas(){
-        Product prd = new Product();
-        ArrayList<Product> products = prd.prepareProduct();
+        ProductOperations po = new ProductOperations();
+        ArrayList<Product> products = po.getEnableProducts();
         productList = products;
         for(Product p : products)
            getDefaultModelOfProductTable().addRow(new Object[]{p.ID,p.name, p.stock,priceFormatter(p.price)});
@@ -286,17 +287,24 @@ public class AddOrderPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        for(OrderItem oi: items){
-            sale.addOrderItemToSale(oi);
+        if(!items.isEmpty()){
+            for(OrderItem oi: items){
+                sale.addOrderItemToSale(oi);
+            }
+            boolean success = sale.finalizeSale();
+            if(!success)
+                showUnsuccessDialog("Satış Eklenirken Bir Hatayla Karşılaştık. Daha Sonra Tekrar Deneyiniz.");
+            else        
+                showSuccessDialog();
+       
+            this.setVisible(false);
         }
-        sale.finalizeSale();
-        JOptionPane.showMessageDialog(null, "Satış başarıyla eklendi.");
-        this.setVisible(false);
+        else 
+            showUnsuccessDialog("Lütfen Satışa Eklenecek Ürünleri Seçiniz.");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        JOptionPane.showMessageDialog(null, "Deneme");
-        this.setVisible(false);
+        showCancelDialog();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
@@ -375,6 +383,10 @@ public class AddOrderPage extends javax.swing.JFrame {
     
     private double calculateTotalPrice(){
         double sum = 0;
+        
+        if(items.isEmpty())
+            return 0.0;
+        
         for(OrderItem oi: items)
             sum += oi.price * oi.amount;
         
@@ -404,7 +416,33 @@ public class AddOrderPage extends javax.swing.JFrame {
         NumberFormat lirasFormat = NumberFormat.getCurrencyInstance(locale);
         
         return lirasFormat.format(price);
-    }    
+    }  
+    
+    private void showCancelDialog(){
+        Object[] options = { "EVET", "HAYIR" };
+            int response=JOptionPane.showOptionDialog(this, "Satışı iptal etmek istiyor musunuz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+            if(response == JOptionPane.YES_OPTION){  
+                // MainPage main = new MainPage()
+                // main.inject();
+                this.setVisible(false);
+            }
+    }
+    
+    private void showSuccessDialog(){
+        Object[] options = { "Excel Çıktısı Al", "Ana Menüye Dön" };
+            int response=JOptionPane.showOptionDialog(this, "Satış Başarıyla Eklendi", "Satış Başarılı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+            if(response == JOptionPane.YES_OPTION){  
+                
+            }
+    }
+    
+    private void showUnsuccessDialog(String message){
+        Object[] options = { "Tamam" };
+            int response=JOptionPane.showOptionDialog(this, message, "Hata !", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE,null,options,options[0]);
+            if(response == JOptionPane.YES_OPTION){  
+                
+            }
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

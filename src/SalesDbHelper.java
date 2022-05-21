@@ -3,12 +3,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SalesDbHelper {
-    private Connector db;
+    public static Connector db = new Connector();
     
-    public SalesDbHelper(){
-        this.db = new Connector();
-    }
-    
+    public SalesDbHelper(){}
     
     // Database'de bulunan orders tablosundaki tüm verileri çekmeyi sağlar. Geriye ArrayList<Sale>'la bu verileri döner.
     public ArrayList<Sale> getAllSales(){
@@ -87,9 +84,9 @@ public class SalesDbHelper {
        } catch(SQLException e){
            System.out.println(e);
        }
-       if(sale != null)
-           System.out.println("Usage For Where Order ID: " + sale.ID + " Tİmestamp: " + sale.date + " Total Price: " + sale.totalPrice + " Seller ID: " + sale.sellerID + " is deleted: " + sale.isDeleted);
        
+       sale.productsOfSale = this.getItemsOfSale(sale.ID);
+      
        return sale;
     }
     
@@ -109,6 +106,8 @@ public class SalesDbHelper {
         return id;
     }
     
+    
+    // bunu iptal yap
     public boolean refundSale(Sale sale){
         System.out.println(sale.ID);
         String query = "UPDATE `orders` SET `orders_refunded`= ?  WHERE `orders_id`=?";
@@ -124,15 +123,17 @@ public class SalesDbHelper {
         } 
     }
     
-    public void updatePriceOfSale(Sale sale){
+    public boolean updatePriceOfSale(Sale sale){
         String query = "UPDATE `orders` SET `orders_total_price`=? WHERE `orders_id`=?";
         try{
             db.preState = db.con.prepareStatement(query);
             db.preState.setDouble(1, sale.totalPrice);
             db.preState.setInt(2,sale.ID);
             db.preState.executeUpdate();
+            return true;
         } catch(SQLException e){
             System.out.println("SalesDbHelper.updateSale()" + e);
+            return false;
         }
     }
     
@@ -156,13 +157,14 @@ public class SalesDbHelper {
     
     public boolean addOrderItem(OrderItem oi){
         try{
-            String query = "Insert into order_items (order_items_sales_id, order_items_product_id, order_items_amount, order_items_refunded, order_items_price, order_items_cost)" + "VALUES(?,?,?,'0',?,?)" ;
+            String query = "Insert into `order_items` (order_items_sales_id, order_items_product_id, order_items_amount, order_items_refunded, order_items_price, order_items_cost)" + "VALUES(?,?,?,?,?,?)" ;
             db.preState = db.con.prepareStatement(query);
             db.preState.setInt(1, oi.saleID);
             db.preState.setInt(2, oi.productID);
             db.preState.setInt(3, oi.amount);
-            db.preState.setDouble(4, oi.price);
-            db.preState.setDouble(5, oi.cost);
+            db.preState.setString(4, (oi.isRefunded) ? "1" : "0");
+            db.preState.setDouble(5, oi.price);
+            db.preState.setDouble(6, oi.cost);
             db.preState.execute();
             return true;
         }catch(SQLException e){
@@ -173,13 +175,12 @@ public class SalesDbHelper {
 
     public OrderItem getOrderItem(int idOfItem){
         String query;
-        OrderItem oi;
-        query = "SELECT * FROM order_items WHERE `order_items_id`=?"; 
+        OrderItem oi = null;
+        query = "SELECT * FROM `order_items` WHERE `order_items_id`=?"; 
         try{
             db.preState = db.con.prepareStatement(query);
             db.preState.setInt(1, idOfItem);
             ResultSet rs = db.preState.executeQuery();
-            rs.next();
             while(rs.next())
                 oi = new OrderItem(rs.getInt("order_items_id"), rs.getInt("order_items_sales_id"), rs.getInt("order_items_product_id"), rs.getInt("order_items_amount") , rs.getBoolean("order_items_refunded"), rs.getDouble("order_items_price"), rs.getDouble("order_items_cost"));
 

@@ -39,48 +39,41 @@ public class Sale {
         return false;
     }
     
-    public void finalizeSale(){
+    public boolean finalizeSale(){
         SalesDbHelper dbHelper = new SalesDbHelper();
         double sumOfTotalPrices = 0;
         for (OrderItem orderItem : this.productsOfSale){
-            if(!orderItem.isRefunded)
-                sumOfTotalPrices += orderItem.price*orderItem.amount;
-            else if(orderItem.isRefunded)
-                sumOfTotalPrices -= orderItem.price*orderItem.amount;
+            sumOfTotalPrices += orderItem.price*orderItem.amount;
         }
         
         this.totalPrice = sumOfTotalPrices;
-        dbHelper.updatePriceOfSale(this);
+        return dbHelper.updatePriceOfSale(this);
         // call increaseSoldCountOfEmployee
     }
     
     public void addOrderItemToSale(OrderItem oi){
         ProductOperations po = new ProductOperations();
         SalesDbHelper dbHelper = new SalesDbHelper();
-        
+
         if(po.checkStock(oi.productID, oi.amount)){
+            oi.saleID = ID;
             this.productsOfSale.add(oi);
             dbHelper.addOrderItem(oi);
             po.decreaseStock(oi.productID, oi.amount);
         }
         
     }
-    
-    public boolean addRefund(int orderID, int productID, int amount, int priceOfProduct){
-        OrderItem oi = new OrderItem(orderID, productID, amount, '1', priceOfProduct);
-        SalesDbHelper dbHelper = new SalesDbHelper();
-        ProductOperations po = new ProductOperations();  
-        this.productsOfSale.add(oi);
-        dbHelper.addOrderItem(oi);
-        po.decreaseStock(productID, -1*amount);     // stok arttırma metodu
-        
-        return true;
-    }
       
     public boolean refundOrderItem(int orderItemId, int orderID, int amount){
         SalesDbHelper dbHelper = new SalesDbHelper();
         OrderItem prevOi = dbHelper.getOrderItem(orderItemId);
-        OrderItem oi = new OrderItem(orderID, prevOi.productID, -1 * amount, true, prevOi.price, prevOi.cost);
+        Sale sale = dbHelper.getSale(orderID);
+        OrderItem oi = new OrderItem(orderID, prevOi.productID, -1*amount, true, prevOi.price, prevOi.cost);
+        ProductOperations po = new ProductOperations(); 
+        
+        sale.addOrderItemToSale(oi);
+        sale.finalizeSale();
+        
         return dbHelper.addOrderItem(oi);
     }
 }

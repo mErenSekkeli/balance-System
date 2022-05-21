@@ -1,12 +1,14 @@
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ProductOperations {
     private ResultSet rs=null;
-    private static Connector db=new Connector();
+    private static Connector db= SalesDbHelper.db;
+    
     // Database'e yeni ürün ekler
     public void add(String name, double price, double cost, double marketPrice, int stock){
         try {
@@ -23,71 +25,23 @@ public class ProductOperations {
         }
     }
     
-    //Database'de verilen ID'li ürünün ismini günceller
-    public void updateName(int ID, String name){
+    //Database'de verilen ID'li ürünü günceller
+    public void update(int ID, String name, double price, double cost, double marketPrice, int stock){
         try {
-           String query = "UPDATE products SET product_name = '?' WHERE product_id = ?";
+            String query = "UPDATE products SET product_name = ?, product_price = ?, product_cost = ?, product_market_price = ?, product_stock = ? WHERE product_id = ?";
             db.preState = db.con.prepareStatement(query);
             db.preState.setString(1, name);
-            db.preState.setInt(2, ID);
+            db.preState.setDouble(2, price);
+            db.preState.setDouble(3, cost);
+            db.preState.setDouble(4, marketPrice);
+            db.preState.setInt(5, stock);
+            db.preState.setInt(6, ID);
             db.preState.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    //Database'de verilen ID'li ürünün fiyatını günceller
-    public void updatePrice(int ID, double price){
-        try {
-           String query = "UPDATE products SET product_price = ? WHERE product_id = ?";
-            db.preState = db.con.prepareStatement(query);
-            db.preState.setDouble(1, price);
-            db.preState.setInt(2, ID);
-            db.preState.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    //Database'de verilen ID'li ürünün maliyetini günceller
-    public void updateCost(int ID, double cost){
-        try {
-           String query = "UPDATE products SET product_cost = ? WHERE product_id = ?";
-            db.preState = db.con.prepareStatement(query);
-            db.preState.setDouble(1, cost);
-            db.preState.setInt(2, ID);
-            db.preState.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    //Database'de verilen ID'li ürünün pazar fiyatını günceller
-    public void updateMarketPrice(int ID, double mPrice){
-        try {
-           String query = "UPDATE products SET product_market_price = ? WHERE product_id = ?";
-            db.preState = db.con.prepareStatement(query);
-            db.preState.setDouble(1, mPrice);
-            db.preState.setInt(2, ID);
-            db.preState.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    //Database'de verilen ID'li ürünün stok sayısını günceller
-    public void updateStock(int ID, int stock){
-        try {
-           String query = "UPDATE products SET product_stock = ? WHERE product_id = ?";
-            db.preState = db.con.prepareStatement(query);
-            db.preState.setInt(1, stock);
-            db.preState.setInt(2, ID);
-            db.preState.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
+
     //Database'de verilen ID'li ürünün stok sayısını 'amount' kadar eksiltir
     public void decreaseStock(int ID, int amount){
         try {
@@ -101,10 +55,9 @@ public class ProductOperations {
         }
     }
     
-    //Ürünün stokta varsa true, yoksa false döndürür
+    //Ürünün stokta yeteri kadar varsa true, yoksa false döndürür
     public boolean checkStock(int ID, int amount){
         boolean bool=false;
-        System.out.println("ProductOperations.checkStock() " +ID);
          try {
             String query = "SELECT * FROM products WHERE product_id = ?";
             db.preState=db.con.prepareStatement(query);
@@ -112,7 +65,7 @@ public class ProductOperations {
          
             rs=db.preState.executeQuery();
             while(rs.next()){
-                bool = rs.getInt("product_stock")>amount;
+                bool = rs.getInt("product_stock")>=amount;
             }
         } catch (SQLException ex) {
             Logger.getLogger(analysisCostProfit.class.getName()).log(Level.SEVERE, null, ex);
@@ -166,6 +119,162 @@ public class ProductOperations {
             Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-}
-
     
+    //Tüm Ürünleri ArrayListte döndürür
+    public ArrayList<Product> getProductList() {
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            String query="SELECT * FROM products";
+            db.preState=db.con.prepareStatement(query);
+         
+            rs=db.preState.executeQuery();
+            while(rs.next()){
+                products.add(new Product(rs.getInt("product_id"),rs.getString("product_name"),rs.getDouble("product_price"),rs.getDouble("product_cost"),rs.getDouble("product_market_price"),rs.getInt("product_stock"),rs.getBoolean("product_enabled")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     
+        }
+        return products;
+    }
+    
+    //Satıştaki ürünleri ArrayListte döndürür
+    public ArrayList<Product> getEnableProducts() {
+        ArrayList<Product> enableProducts = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM products WHERE product_enabled = ?";
+            db.preState=db.con.prepareStatement(query);
+            db.preState.setString(1, "1");
+         
+            rs=db.preState.executeQuery();
+            while(rs.next()){
+                enableProducts.add(new Product(rs.getInt("product_id"),rs.getString("product_name"),rs.getDouble("product_price"),rs.getDouble("product_cost"),rs.getDouble("product_market_price"),rs.getInt("product_stock"),rs.getBoolean("product_enabled")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return enableProducts;
+    }
+    
+    //Satışta olmayan ürünleri ArrayListte döndürür
+    public ArrayList<Product> getDisableProducts() {
+        ArrayList<Product> disableProducts = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM products WHERE product_enabled = ?";
+            db.preState=db.con.prepareStatement(query);
+            db.preState.setString(1, "0");
+         
+            rs=db.preState.executeQuery();
+            while(rs.next()){
+                disableProducts.add(new Product(rs.getInt("product_id"),rs.getString("product_name"),rs.getDouble("product_price"),rs.getDouble("product_cost"),rs.getDouble("product_market_price"),rs.getInt("product_stock"),rs.getBoolean("product_enabled")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return disableProducts;
+    }
+    
+    //Stokta olan ürünleri ArrayListte döndürür
+    public ArrayList<Product> getProductsOnStock() {
+        ArrayList<Product> onStockProducts = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM products WHERE product_stock != ?";
+            db.preState=db.con.prepareStatement(query);
+            db.preState.setInt(1, 0);
+         
+            rs=db.preState.executeQuery();
+            while(rs.next()){
+                onStockProducts.add(new Product(rs.getInt("product_id"),rs.getString("product_name"),rs.getDouble("product_price"),rs.getDouble("product_cost"),rs.getDouble("product_market_price"),rs.getInt("product_stock"),rs.getBoolean("product_enabled")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return onStockProducts;
+    }
+    
+    //Stoku bitmiş ürünleri ArrayListte döndürür
+    public ArrayList<Product> getProductsOffStock() {
+        ArrayList<Product> offStockProducts = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM products WHERE product_stock = ?";
+            db.preState=db.con.prepareStatement(query);
+            db.preState.setInt(1, 0);
+         
+            rs=db.preState.executeQuery();
+            while(rs.next()){
+                offStockProducts.add(new Product(rs.getInt("product_id"),rs.getString("product_name"),rs.getDouble("product_price"),rs.getDouble("product_cost"),rs.getDouble("product_market_price"),rs.getInt("product_stock"),rs.getBoolean("product_enabled")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return offStockProducts;
+    }
+    
+    //integer array olarak verilen id listesine göre ürünlerden oluşan arraylist döndürür
+    public ArrayList<Product> getProductsById(int idList[]) {
+        ArrayList<Product> Products = new ArrayList<>();
+        for(int id:idList){
+            try {
+                String query = "SELECT * FROM products WHERE product_id = ?";
+                db.preState=db.con.prepareStatement(query);
+                db.preState.setInt(1, id);
+
+                rs=db.preState.executeQuery();
+                while(rs.next()){
+                    Products.add(new Product(rs.getInt("product_id"),rs.getString("product_name"),rs.getDouble("product_price"),rs.getDouble("product_cost"),rs.getDouble("product_market_price"),rs.getInt("product_stock"),rs.getBoolean("product_enabled")));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+        return Products;
+    }
+}

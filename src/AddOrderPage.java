@@ -406,6 +406,7 @@ public class AddOrderPage extends javax.swing.JFrame {
             if(response == JOptionPane.YES_OPTION){  
                 try {
                     CSVExporter.jtExportResultSetWithDialog(this, jTable2, true);
+                    this.dispose();
                 } catch (SQLException | IOException ex) {
             Logger.getLogger(ListRefundedProductsUI.class.getName()).log(Level.SEVERE, null, ex);
         }

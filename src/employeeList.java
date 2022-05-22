@@ -45,7 +45,7 @@ public class employeeList extends javax.swing.JFrame {
                     tmp[2]="Stok Takip Elemanı";
                 }
                 tmp[3]=Integer.toString(e.workTime);
-                Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Format formatter = new SimpleDateFormat("dd/MM/YYYY");
                 tmp[4]=formatter.format(e.hiringTime);
                 table.addRow(tmp); 
                 }
@@ -95,6 +95,7 @@ public class employeeList extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        employeeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(employeeTable);
 
         createExcel.setText("Excel Oluştur");

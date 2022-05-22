@@ -25,7 +25,6 @@ public class EmployeeManager {
     private Connection con = null;
     private Statement state = null;
     private PreparedStatement preState = null;
-    private static String query = "SELECT * FROM employer";
 
     public EmployeeManager(int ID, String name, int workTime, int soldCount, Date hiringTime, Date lastLogin) {
         this.ID = ID;
@@ -42,9 +41,9 @@ public class EmployeeManager {
     }
 
     public ArrayList<EmployeeManager> prepareEmployee() {
+        String query = "SELECT * FROM employer";
         try {
             db.preState = db.con.prepareStatement(query);
-
             ResultSet rs = db.preState.executeQuery();
             while (rs.next()) {
                 numberOfEmployee++;
@@ -58,10 +57,8 @@ public class EmployeeManager {
 
     //satış olunca veritabanındaki satış sayısını arttırma fonksiyonu
     public static void increaseSoldCountOfEmployee(int employer_id) {
+        String query = "UPDATE employer SET emp_sold_count = emp_sold_count + 1 WHERE emp_id = ?";
         try {
-
-            query = "UPDATE employer SET emp_sold_count = emp_sold_count + 1 WHERE emp_id = ?";
-
             db.preState = db.con.prepareStatement(query);
             db.preState.setInt(1, employer_id);
             db.preState.executeUpdate();
@@ -73,10 +70,8 @@ public class EmployeeManager {
 
     //iade olunca veritabanındaki satış sayısını azaltma fonksiyonu
     public static void decreaseSoldCountOfEmployee(int employer_id) {
+        String query = "UPDATE employer SET emp_sold_count = emp_sold_count - 1 WHERE emp_id = ?"; 
         try {
-
-            query = "UPDATE employer SET emp_sold_count = emp_sold_count - 1 WHERE emp_id = ?";
-
             db.preState = db.con.prepareStatement(query);
             db.preState.setInt(1, employer_id);
             db.preState.executeUpdate();
@@ -87,9 +82,8 @@ public class EmployeeManager {
     }
 
     public static Employee getEmployeeFromId(int employer_id) {
+        String query = "SELECT * FROM employer WHERE emp_id = ?";
         try {
-            query = "SELECT * FROM employer WHERE emp_id = ?";
-
             db.preState = db.con.prepareStatement(query);
             db.preState.setInt(1, employer_id);
             ResultSet set = db.preState.executeQuery();

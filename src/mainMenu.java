@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,9 +8,6 @@ import javax.swing.JOptionPane;
  */
 public class mainMenu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Main
-     */
     private ProductOperations pOps;
     private SalesDbHelper orderManager;
     private Connector db;
@@ -34,6 +27,7 @@ public class mainMenu extends javax.swing.JFrame {
             satisanalizi.setVisible(false);
             stokanalizi.setVisible(false);
             karanalizi.setVisible(false);
+            addEmployee.setVisible(false);
 
         } else if (account_user_role == 2) {
             // Satıcı Personel
@@ -48,6 +42,7 @@ public class mainMenu extends javax.swing.JFrame {
             satisanalizi.setVisible(false);
             stokanalizi.setVisible(false);
             karanalizi.setVisible(false);
+            addEmployee.setVisible(false);
         }
     }
 
@@ -56,7 +51,6 @@ public class mainMenu extends javax.swing.JFrame {
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                System.out.println("aaa");
                 menu.setVisible(true);
             }
         });
@@ -93,6 +87,7 @@ public class mainMenu extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         satisekle = new javax.swing.JButton();
         satisgoruntuleiade = new javax.swing.JButton();
+        addEmployee = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ana Menu");
@@ -180,6 +175,13 @@ public class mainMenu extends javax.swing.JFrame {
             }
         });
 
+        addEmployee.setText("Çalışan Ekle");
+        addEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addEmployeeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,7 +205,8 @@ public class mainMenu extends javax.swing.JFrame {
                     .addComponent(satisgoruntuleiade, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                     .addComponent(stokanalizi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(satisanalizi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(karanalizi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(karanalizi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -224,7 +227,9 @@ public class mainMenu extends javax.swing.JFrame {
                     .addComponent(iadeedilenurunlistesi)
                     .addComponent(stokanalizi))
                 .addGap(24, 24, 24)
-                .addComponent(satisozeti)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(satisozeti)
+                    .addComponent(addEmployee))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(kullanicilistesi)
@@ -335,6 +340,13 @@ public class mainMenu extends javax.swing.JFrame {
         addClosedListenerToFrame(lrp);
     }//GEN-LAST:event_satisgoruntuleiadeActionPerformed
 
+    private void addEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmployeeActionPerformed
+        registerPage lrp=new registerPage();
+        setVisible(false);
+        lrp.setVisible(true);
+        addClosedListenerToFrame(lrp);
+    }//GEN-LAST:event_addEmployeeActionPerformed
+
     public void mainInject() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -343,14 +355,9 @@ public class mainMenu extends javax.swing.JFrame {
         });
     }
 
-    public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(() -> {
-            new mainMenu().setLocationRelativeTo(null);
-            new mainMenu().setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addEmployee;
     private javax.swing.JButton cikis;
     private javax.swing.JButton iadeedilenurunlistesi;
     private javax.swing.JLabel jLabel6;

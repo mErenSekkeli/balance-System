@@ -1,10 +1,8 @@
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
 /**
  *
@@ -79,6 +77,12 @@ public class UpdateProduct extends javax.swing.JFrame {
 
         LabelStock.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         LabelStock.setText("Stok Sayısı");
+
+        stock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                stokKeyTyped(evt);
+            }
+        });
 
         saveButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         saveButton.setText("Ürünü Kaydet");
@@ -188,9 +192,16 @@ public class UpdateProduct extends javax.swing.JFrame {
         }else if(stock.getText().equals("")){
             error_message.setForeground(Color.RED);
             error_message.setText("Stok Miktari Bos Birakilamaz!");
+        } else if (Integer.parseInt(stock.getText()) < 0) { 
+            error_message.setForeground(Color.RED);
+            error_message.setText("Stok Miktari negatif olamaz!");
         }
         else{
-            set.update(setProduct.ID, name.getText(), Double.parseDouble(price.getText()), Double.parseDouble(cost.getText()), Double.parseDouble(marketPrice.getText()), Integer.parseInt(stock.getText()));
+            boolean result = set.update(setProduct.ID, name.getText(), Double.parseDouble(price.getText()), Double.parseDouble(cost.getText()), Double.parseDouble(marketPrice.getText()), Integer.parseInt(stock.getText()));
+            if(!result) {
+                JOptionPane.showMessageDialog(this, "Ürünü güncellerken bir hata oluştu!");
+                return;
+            }
             pList.returnToList();
             pList.putMessage(Color.green, "Ürün Güncellendi");
             setVisible(false);
@@ -198,6 +209,14 @@ public class UpdateProduct extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void stokKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stokKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();  // if it's not a number, ignore the event
+        }
+    }//GEN-LAST:event_stokKeyTyped
 
    
     

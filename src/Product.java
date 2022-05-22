@@ -1,11 +1,7 @@
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Product {
     static int numberOfProducts=0;
@@ -16,10 +12,7 @@ public class Product {
     double marketPrice;
     int stock;
     boolean enabled;
-    private ResultSet rs=null;
-
     ArrayList<Product> productInfo = new ArrayList<>();
-    //private static Connector db=new Connector();
     private String query="SELECT * FROM products";
 
     //Ürünlerin Constructor'u
@@ -44,32 +37,4 @@ public class Product {
         
         return lirasFormat.format(price);
     }
-    
-    /*
-    //Bu method yerine ProductOperations classındaki getProductList methodunu kullanın.
-    //Şimdilik bunu kullanmak için Connector db'yi yorumdan çıkarın
-    //Bu method silinecek
-    public ArrayList<Product> prepareProduct() {
-        try {
-            db.preState=db.con.prepareStatement(query);
-         
-            rs=db.preState.executeQuery();
-            while(rs.next()){
-                numberOfProducts++;
-                productInfo.add(new Product(rs.getInt("product_id"),rs.getString("product_name"),rs.getDouble("product_price"),rs.getDouble("product_cost"),rs.getDouble("product_market_price"),rs.getInt("product_stock"),rs.getBoolean("product_enabled")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(analysisCostProfit.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (rs != null) {
-            try {
-                rs.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-     
-        }
-        return productInfo;
-    }*/
 }

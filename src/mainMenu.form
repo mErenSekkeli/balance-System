@@ -50,6 +50,7 @@
                   <Component id="stokanalizi" alignment="0" max="32767" attributes="0"/>
                   <Component id="satisanalizi" alignment="0" max="32767" attributes="0"/>
                   <Component id="karanalizi" alignment="0" max="32767" attributes="0"/>
+                  <Component id="addEmployee" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -76,7 +77,10 @@
                   <Component id="stokanalizi" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Component id="satisozeti" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="satisozeti" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="addEmployee" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="kullanicilistesi" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -188,6 +192,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="satisgoruntuleiadeActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="addEmployee">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xc7;al&#x131;&#x15f;an Ekle"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addEmployeeActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

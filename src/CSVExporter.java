@@ -1,5 +1,4 @@
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -7,26 +6,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.sql.*;
 import java.text.DecimalFormatSymbols;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.TimeZone;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTable;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 /**
  *
  * @author laptop

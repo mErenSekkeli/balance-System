@@ -45,7 +45,7 @@ public class employeeList extends javax.swing.JFrame {
                     tmp[2]="Stok Takip Elemanı";
                 }
                 tmp[3]=Integer.toString(e.workTime);
-                Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Format formatter = new SimpleDateFormat("dd/MM/YYYY");
                 tmp[4]=formatter.format(e.hiringTime);
                 table.addRow(tmp); 
                 }
@@ -76,7 +76,8 @@ public class employeeList extends javax.swing.JFrame {
         close = new javax.swing.JButton();
         message = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Calisan Listesi");
 
         employeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -94,6 +95,7 @@ public class employeeList extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        employeeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(employeeTable);
 
         createExcel.setText("Excel Oluştur");
@@ -158,6 +160,13 @@ public class employeeList extends javax.swing.JFrame {
         int row=employeeTable.getSelectedRow();
         DefaultTableModel table=(DefaultTableModel) employeeTable.getModel();
         
+        
+        if(currentUser.getAccount_id() == Integer.valueOf(table.getValueAt(row, 0).toString())) {
+            Object[] opt={"Tamam"};
+            JOptionPane.showOptionDialog(this, "Giriş yaptığınız hesabı silemezsiniz.", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,null,opt,opt[0]);
+            return;
+        }
+        
         if(row!=-1){
             Object[] options = { "EVET", "HAYIR" };
             int response=JOptionPane.showOptionDialog(this, "Çalışanı silmek istediğinize emin misiniz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[1]);
@@ -188,43 +197,9 @@ public class employeeList extends javax.swing.JFrame {
     }//GEN-LAST:event_createExcelActionPerformed
 
     private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_closeActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(employeeList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(employeeList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(employeeList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(employeeList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new employeeList().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton close;

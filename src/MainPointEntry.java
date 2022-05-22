@@ -1,22 +1,27 @@
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.sql.*;
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
  * @author laptop
  */
 public class MainPointEntry {
+
     public static void main(String[] args) {
-       MainFormInvisible invis = new MainFormInvisible();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainPointEntry.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(MainPointEntry.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(MainPointEntry.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(MainPointEntry.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        MainFormInvisible invis = new MainFormInvisible();
     }
 }

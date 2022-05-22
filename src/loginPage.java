@@ -27,7 +27,6 @@ public class loginPage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         user_loginBTN = new javax.swing.JButton();
-        user_registerBTN = new javax.swing.JButton();
         user_pass = new javax.swing.JPasswordField();
         info_message = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -46,13 +45,6 @@ public class loginPage extends javax.swing.JFrame {
         user_loginBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 user_loginBTNActionPerformed(evt);
-            }
-        });
-
-        user_registerBTN.setText("Kaydol");
-        user_registerBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                user_registerBTNActionPerformed(evt);
             }
         });
 
@@ -76,7 +68,6 @@ public class loginPage extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(user_registerBTN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(user_name)
                             .addComponent(user_pass)
                             .addComponent(user_loginBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -95,7 +86,7 @@ public class loginPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(info_message)
-                        .addGap(9, 9, 9))
+                        .addGap(249, 249, 249))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(user_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -106,9 +97,7 @@ public class loginPage extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addComponent(user_loginBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(user_registerBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(240, 240, 240))
+                        .addGap(281, 281, 281))))
         );
 
         pack();
@@ -195,13 +184,6 @@ public class loginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_user_loginBTNActionPerformed
     
     
-    /* Kayıt olma ekranına yönlendirme metodu */
-    private void user_registerBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_registerBTNActionPerformed
-        registerPage reg=new registerPage();
-        setVisible(false);
-        reg.registerInject();
-    }//GEN-LAST:event_user_registerBTNActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -215,6 +197,5 @@ public class loginPage extends javax.swing.JFrame {
     private javax.swing.JButton user_loginBTN;
     private javax.swing.JTextField user_name;
     private javax.swing.JPasswordField user_pass;
-    private javax.swing.JButton user_registerBTN;
     // End of variables declaration//GEN-END:variables
 }

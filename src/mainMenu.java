@@ -27,6 +27,7 @@ public class mainMenu extends javax.swing.JFrame {
             satisanalizi.setVisible(false);
             stokanalizi.setVisible(false);
             karanalizi.setVisible(false);
+            addEmployee.setVisible(false);
 
         } else if (account_user_role == 2) {
             // Satıcı Personel
@@ -41,6 +42,7 @@ public class mainMenu extends javax.swing.JFrame {
             satisanalizi.setVisible(false);
             stokanalizi.setVisible(false);
             karanalizi.setVisible(false);
+            addEmployee.setVisible(false);
         }
     }
 

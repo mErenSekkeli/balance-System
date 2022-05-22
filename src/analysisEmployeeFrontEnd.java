@@ -63,7 +63,11 @@ public class analysisEmployeeFrontEnd extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         createExcel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Calisan Analizi");
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        setResizable(false);
+        setSize(new java.awt.Dimension(1280, 720));
 
         workerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -137,7 +141,8 @@ public class analysisEmployeeFrontEnd extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        setVisible(false);
+        //setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void createExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createExcelActionPerformed

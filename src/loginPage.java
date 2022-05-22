@@ -32,9 +32,10 @@ public class loginPage extends javax.swing.JFrame {
         info_message = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kullanici Girisi");
         setPreferredSize(new java.awt.Dimension(1280, 720));
+        setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
 
         jLabel1.setText("Email");
@@ -155,6 +156,8 @@ public class loginPage extends javax.swing.JFrame {
                 Date date = new Date();    
                 java.sql.Date sDate = new java.sql.Date(date.getTime());
                 
+                EmployeeManager.onLogin(account_emp_id);
+                
                 /* Kullanıcının veritabanındaki accounts tablosundaki id'si aracılığıyla 
                 employer tablosunda tutulan ve en son giriş yaptığı zamanı gösteren sütun güncellenir */
                 query = "UPDATE employer SET emp_last_login = ? where emp_id = ?";
@@ -176,6 +179,12 @@ public class loginPage extends javax.swing.JFrame {
             */
             mainMenu main=new mainMenu();
             setVisible(false);
+            main.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                System.exit(0);
+            }
+            });
             main.mainInject();
            
             
@@ -207,40 +216,7 @@ public class loginPage extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
-    
-    public static void main(String args[]) {
-        
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(loginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(loginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(loginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(loginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-                
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new loginPage().setLocationRelativeTo(null);
-            new loginPage().setVisible(true);
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel info_message;

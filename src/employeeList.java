@@ -54,16 +54,6 @@ public class employeeList extends javax.swing.JFrame {
         }
         
     }
-    
-    public DefaultTableModel getDefaultModel() {
-        return (DefaultTableModel) employeeTable.getModel();
-    }
-    
-    public void clearTable(){
-        while(getDefaultModel().getRowCount()>0){
-            getDefaultModel().removeRow(0);
-        }
-    }
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -76,7 +66,8 @@ public class employeeList extends javax.swing.JFrame {
         close = new javax.swing.JButton();
         message = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Calisan Listesi");
 
         employeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -167,10 +158,6 @@ public class employeeList extends javax.swing.JFrame {
                 Color color=new Color(3,119,26);
                 message.setForeground(color);
                 message.setText("Çalışan Silindi!");
-                clearTable();
-                emps=new EmployeeManager();
-                acc=new Account();
-                getEmployees();
             }
         }else{
             Object[] opt={"Tamam"};
@@ -188,43 +175,9 @@ public class employeeList extends javax.swing.JFrame {
     }//GEN-LAST:event_createExcelActionPerformed
 
     private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_closeActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(employeeList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(employeeList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(employeeList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(employeeList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new employeeList().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton close;

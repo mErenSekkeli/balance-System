@@ -9,7 +9,11 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="&#xdc;r&#xfc;n Listesi"/>
+    <Property name="title" type="java.lang.String" value="Urun Listesi"/>
+    <Property name="resizable" type="boolean" value="false"/>
+    <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1280, 720]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -41,7 +45,6 @@
                   <Component id="jComboBox" min="-2" max="-2" attributes="0"/>
                   <Component id="addPrButton" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="deleteButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="message" alignment="1" min="-2" pref="157" max="-2" attributes="0"/>
                       <Component id="updatePrButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="enabledButton" alignment="0" max="32767" attributes="0"/>
@@ -68,9 +71,7 @@
                       <Component id="jComboBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="excelButton" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="deleteButton" min="-2" pref="31" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                       <Component id="enabledButton" min="-2" pref="31" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="updatePrButton" min="-2" max="-2" attributes="0"/>
@@ -168,17 +169,6 @@
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="deleteButton">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="14" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="&#xdc;r&#xfc;n&#xfc; Sil"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteButtonActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="enabledButton">
       <Properties>

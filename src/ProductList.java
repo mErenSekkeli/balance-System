@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 
 
 import java.awt.Color;
@@ -76,13 +71,14 @@ public class ProductList extends javax.swing.JFrame {
         addPrButton = new javax.swing.JButton();
         updatePrButton = new javax.swing.JButton();
         message = new javax.swing.JLabel();
-        deleteButton = new javax.swing.JButton();
         enabledButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         excelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Ürün Listesi");
+        setTitle("Urun Listesi");
+        setResizable(false);
+        setSize(new java.awt.Dimension(1280, 720));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -155,14 +151,6 @@ public class ProductList extends javax.swing.JFrame {
 
         message.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        deleteButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        deleteButton.setText("Ürünü Sil");
-        deleteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteButtonActionPerformed(evt);
-            }
-        });
-
         enabledButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         enabledButton.setText("Ürünü Satıştan Kaldır");
         enabledButton.addActionListener(new java.awt.event.ActionListener() {
@@ -194,7 +182,6 @@ public class ProductList extends javax.swing.JFrame {
                     .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addPrButton)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(deleteButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(message, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(updatePrButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(enabledButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -216,9 +203,7 @@ public class ProductList extends javax.swing.JFrame {
                         .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(excelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
+                        .addGap(71, 71, 71)
                         .addComponent(enabledButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24)
                         .addComponent(updatePrButton)
@@ -338,23 +323,6 @@ public class ProductList extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_updatePrButtonActionPerformed
     
-    //Databaseden ürün silme işlemini gerçekleştirir
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        int selectedIndex;
-        selectedIndex = product_table.getSelectedRow(); 
-        if(selectedIndex == -1){
-            putMessage(Color.red, "Bir ürün seçiniz");
-        }else{
-            Object[] options = { "EVET", "HAYIR" };
-            int response=JOptionPane.showOptionDialog(this, "Ürünü silmek istediğinize emin misiniz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
-            if(response == JOptionPane.YES_OPTION){  
-                message.setText("");
-                list.remove(getSelectedProduct().ID);
-                putMessage(Color.green, "Ürün Silindi");
-            }
-        }
-    }//GEN-LAST:event_deleteButtonActionPerformed
-
     //ürünleri enable-disable eder
     private void enabledButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enabledButtonActionPerformed
         int selectedIndex;
@@ -402,47 +370,11 @@ public class ProductList extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosed
 
-       
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProductList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProductList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProductList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProductList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ProductList().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPrButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JButton deleteButton;
     private javax.swing.JButton enabledButton;
     private javax.swing.JButton excelButton;
     private javax.swing.JComboBox<String> jComboBox;

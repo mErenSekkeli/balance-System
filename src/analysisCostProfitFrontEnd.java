@@ -71,8 +71,8 @@ public class analysisCostProfitFrontEnd extends javax.swing.JFrame {
         createExcel = new javax.swing.JButton();
         closeTable = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Kar Analizi");
         profitTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -147,7 +147,8 @@ public class analysisCostProfitFrontEnd extends javax.swing.JFrame {
     }                                           
 
     private void closeTableActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        setVisible(false);
+        //setVisible(false);
+        this.dispose();
     }                                         
 
     // Variables declaration - do not modify                     

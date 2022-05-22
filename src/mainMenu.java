@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,19 +17,30 @@ public class mainMenu extends javax.swing.JFrame {
 
     public void initRole(int account_user_role) {
 
-        if (account_user_role == 2) {
-
-            urunekle.setVisible(false);
+        if (account_user_role == 3) {
+            // Stokçu (?)
+            urunekle.setVisible(true);
+            urunlistesi.setVisible(true);
+            
+            satisgoruntuleiade.setVisible(false);
+            satisekle.setVisible(false);
+            kullanicilistesi.setVisible(false);
             iadeedilenurunlistesi.setVisible(false);
-            urunlistesi.setVisible(false);
             satisozeti.setVisible(false);
-
             satisanalizi.setVisible(false);
             stokanalizi.setVisible(false);
             karanalizi.setVisible(false);
 
-        } else if (account_user_role == 3) {
-
+        } else if (account_user_role == 2) {
+            // Satıcı Personel
+            satisgoruntuleiade.setVisible(true);
+            satisekle.setVisible(true);
+            iadeedilenurunlistesi.setVisible(true);
+            
+            urunekle.setVisible(false);
+            urunlistesi.setVisible(false);
+            kullanicilistesi.setVisible(false);
+            satisozeti.setVisible(false);
             satisanalizi.setVisible(false);
             stokanalizi.setVisible(false);
             karanalizi.setVisible(false);
@@ -84,6 +91,8 @@ public class mainMenu extends javax.swing.JFrame {
         satisgoruntuleiade = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ana Menu");
+        setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
 
         cikis.setText("Çıkış Yap");
@@ -276,8 +285,10 @@ public class mainMenu extends javax.swing.JFrame {
 
     private void kullanicilistesiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kullanicilistesiActionPerformed
         // TODO add your handling code here:
-
-
+        employeeList lrp = new employeeList();
+        setVisible(false);
+        lrp.setVisible(true);
+        addClosedListenerToFrame(lrp);
     }//GEN-LAST:event_kullanicilistesiActionPerformed
 
     private void satisekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_satisekleActionPerformed
@@ -309,6 +320,7 @@ public class mainMenu extends javax.swing.JFrame {
         analysisStockFrontEnd lrp = new analysisStockFrontEnd();
         setVisible(false);
         lrp.setVisible(true);
+        addClosedListenerToFrame(lrp);
     }//GEN-LAST:event_stokanaliziActionPerformed
 
     private void satisgoruntuleiadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_satisgoruntuleiadeActionPerformed
@@ -327,12 +339,6 @@ public class mainMenu extends javax.swing.JFrame {
         });
     }
 
-    public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(() -> {
-            new mainMenu().setLocationRelativeTo(null);
-            new mainMenu().setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cikis;

@@ -1,16 +1,10 @@
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
 /**
  *
@@ -56,16 +50,5 @@ public class Account {
     @Override
     public String toString() {
         return this.account_emp_id+", "+this.account_email+", "+this.account_role;
-    }
-    public static void main(String[] args) {
-        Account tesat = new Account();
-        
-        ArrayList<Account> items = tesat.prepareAccount();
-        
-        for(Account item : items){
-            System.out.println(item);
-        }
-        
-        
     }
 }

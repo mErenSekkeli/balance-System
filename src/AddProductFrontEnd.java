@@ -1,15 +1,7 @@
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
-/**
- *
- * @author A
- */
 public class AddProductFrontEnd extends javax.swing.JFrame {
     ProductOperations set = new ProductOperations();
     /**
@@ -52,6 +44,7 @@ public class AddProductFrontEnd extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Urun Ekleme");
         setResizable(false);
+        setSize(new java.awt.Dimension(1280, 720));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -214,7 +207,14 @@ public class AddProductFrontEnd extends javax.swing.JFrame {
             error_message.setText("Stok Miktari Bos Birakilamaz!");
         }
         else{
-            set.add(name.getText(),Double.parseDouble(price.getText()),Double.parseDouble(cost.getText()),Double.parseDouble(marketPrice.getText()),Integer.parseInt(stock.getText()));
+            boolean result = set.add(name.getText(),Double.parseDouble(price.getText()),Double.parseDouble(cost.getText()),Double.parseDouble(marketPrice.getText()),Integer.parseInt(stock.getText()));
+            
+            if(result) {
+                JOptionPane.showMessageDialog(this, "Ürünler başarıyla eklendi");
+            } else {
+                JOptionPane.showMessageDialog(this, "Ürünler eklenemedi. Bir hata oluştu.");
+            }
+            
         }
     }//GEN-LAST:event_addProductActionPerformed
 
@@ -224,46 +224,11 @@ public class AddProductFrontEnd extends javax.swing.JFrame {
 
     private void addProduct1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProduct1ActionPerformed
         ProductList list = new ProductList();
-        setVisible(false);
+        //setVisible(false);
         list.setVisible(true);
         //list.listInject();
     }//GEN-LAST:event_addProduct1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddProductFrontEnd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddProductFrontEnd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddProductFrontEnd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddProductFrontEnd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddProductFrontEnd().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addProduct;

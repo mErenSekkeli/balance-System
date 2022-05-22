@@ -1,13 +1,16 @@
-import java.awt.event.ActionEvent;
+
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -40,7 +43,6 @@ public class AddOrderPage extends javax.swing.JFrame {
         sale.addSale();
         
         saleID = dbHelper.getSaleID();
-        System.out.println("AddOrderPage.<init>(): " + saleID);
         sale.ID = saleID;
     }
     
@@ -276,12 +278,13 @@ public class AddOrderPage extends javax.swing.JFrame {
         Product prd;
         prd = getSelectedProduct();
         OrderItem o = new OrderItem(45,prd,getAmount());
-        o.saleID = saleID;
-        item = o;
-        items.add(o);
-        System.out.println(item.productID);
-        getCartDatas();
-        setTotalPriceTextAreaContent();
+        if(prd.stock >= o.amount){
+            o.saleID = saleID;
+            item = o;
+            items.add(o);
+            getCartDatas();
+            setTotalPriceTextAreaContent();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -315,41 +318,6 @@ public class AddOrderPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddOrderPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddOrderPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddOrderPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddOrderPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddOrderPage().setVisible(true);
-            }
-        });
-    }
-    
     private DefaultTableModel getDefaultModelOfProductTable() {
         return (DefaultTableModel) jTable1.getModel();
     }
@@ -376,8 +344,12 @@ public class AddOrderPage extends javax.swing.JFrame {
     
     private void setProductNameTextAreaContent(){
         jTextArea1.setText(getNameOfSelectedProduct());
-        SpinnerModel sm = new SpinnerNumberModel(0, 1, getSelectedProduct().stock, 1);
-        jSpinner1.setModel(sm);
+        try{
+            SpinnerModel sm = new SpinnerNumberModel(1, 1, getSelectedProduct().stock, 1);
+            jSpinner1.setModel(sm);
+        } catch(java.lang.IllegalArgumentException e){
+            showUnsuccessDialog("Eklenmek İstenen Üründe Stok Bulunmamaktadır.");
+        }
     }
     
     private double calculateTotalPrice(){
@@ -421,9 +393,10 @@ public class AddOrderPage extends javax.swing.JFrame {
         Object[] options = { "EVET", "HAYIR" };
             int response=JOptionPane.showOptionDialog(this, "Satışı iptal etmek istiyor musunuz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
             if(response == JOptionPane.YES_OPTION){  
-                // MainPage main = new MainPage()
-                // main.inject();
-                this.setVisible(false);
+                this.dispose();
+            }
+            else{
+                
             }
     }
     
@@ -431,7 +404,16 @@ public class AddOrderPage extends javax.swing.JFrame {
         Object[] options = { "Excel Çıktısı Al", "Ana Menüye Dön" };
             int response=JOptionPane.showOptionDialog(this, "Satış Başarıyla Eklendi", "Satış Başarılı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
             if(response == JOptionPane.YES_OPTION){  
-                
+                try {
+                    CSVExporter.jtExportResultSetWithDialog(this, jTable2, true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AddOrderPage.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(AddOrderPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else{
+                this.dispose();
             }
     }
     
@@ -448,13 +430,7 @@ public class AddOrderPage extends javax.swing.JFrame {
             System.out.println(item1.productID);
         }
     }
-    
-    /*
-    public void Inject(){
-        java.awt.EventQueue.invokeLater(() -> {
-                new AddOrderPage().setVisible(true);
-            });
-    }*/
+   
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

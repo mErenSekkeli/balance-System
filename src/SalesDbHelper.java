@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SalesDbHelper {
-    public static Connector db = new Connector();
+    public static Connector db = DatabaseInstance.getDb();
     
     public SalesDbHelper(){}
     

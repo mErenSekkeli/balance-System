@@ -38,7 +38,6 @@ public class registerPage extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         user_name = new javax.swing.JTextField();
         user_role = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         button1.setLabel("button1");
@@ -80,13 +79,6 @@ public class registerPage extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Giriş Yap");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("KAYIT OL");
@@ -109,8 +101,6 @@ public class registerPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(info_message, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(472, 472, 472))
                     .addGroup(layout.createSequentialGroup()
@@ -163,10 +153,8 @@ public class registerPage extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(user_registerBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(info_message)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(156, 156, 156))
+                .addComponent(info_message)
+                .addGap(170, 170, 170))
         );
 
         pack();
@@ -248,7 +236,7 @@ public class registerPage extends javax.swing.JFrame {
                     info_message.setText("Kullanıcı Girişi Başarılı !");
                     int account_emp_id = rs.getInt("account_emp_id");
 
-                    query = "INSERT INTO employer(emp_id, emp_name, emp_hiring_time, emp_last_login) VALUES (?, ?, ?, ?)";
+                    query = "INSERT INTO employer(emp_id, emp_name, emp_hiring_time, emp_last_login, emp_work_time) VALUES (?, ?, ?, ?, ?)";
                     db.preState = db.con.prepareStatement(query);
 
                     Date date = new Date();
@@ -258,6 +246,7 @@ public class registerPage extends javax.swing.JFrame {
                     db.preState.setString(2, username);
                     db.preState.setDate(3, sDate);
                     db.preState.setDate(4, sDate);
+                    db.preState.setInt(5, 1);
                     db.preState.executeUpdate();
 
                     info_message.setBackground(new Color(37, 146, 67));
@@ -301,12 +290,6 @@ public class registerPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_user_roleActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        setVisible(false);
-        loginPage log = new loginPage();
-        log.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosed
@@ -320,7 +303,6 @@ public class registerPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
     private javax.swing.JLabel info_message;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

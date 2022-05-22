@@ -30,7 +30,7 @@ public class ProductOperations {
     }
     
     //Database'de verilen ID'li ürünü günceller
-    public void update(int ID, String name, double price, double cost, double marketPrice, int stock){
+    public boolean update(int ID, String name, double price, double cost, double marketPrice, int stock){
         try {
             String query = "UPDATE products SET product_name = ?, product_price = ?, product_cost = ?, product_market_price = ?, product_stock = ? WHERE product_id = ?";
             db.preState = db.con.prepareStatement(query);
@@ -40,10 +40,12 @@ public class ProductOperations {
             db.preState.setDouble(4, marketPrice);
             db.preState.setInt(5, stock);
             db.preState.setInt(6, ID);
-            db.preState.executeUpdate();
+            int count = db.preState.executeUpdate();
+            return count > 0;
         } catch (SQLException ex) {
             Logger.getLogger(ProductOperations.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
     //Database'de verilen ID'li ürünün stok sayısını 'amount' kadar eksiltir

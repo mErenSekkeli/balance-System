@@ -160,6 +160,13 @@ public class employeeList extends javax.swing.JFrame {
         int row=employeeTable.getSelectedRow();
         DefaultTableModel table=(DefaultTableModel) employeeTable.getModel();
         
+        
+        if(currentUser.getAccount_id() == Integer.valueOf(table.getValueAt(row, 0).toString())) {
+            Object[] opt={"Tamam"};
+            JOptionPane.showOptionDialog(this, "Giriş yaptığınız hesabı silemezsiniz.", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,null,opt,opt[0]);
+            return;
+        }
+        
         if(row!=-1){
             Object[] options = { "EVET", "HAYIR" };
             int response=JOptionPane.showOptionDialog(this, "Çalışanı silmek istediğinize emin misiniz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[1]);

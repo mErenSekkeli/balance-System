@@ -176,6 +176,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="stock">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="stokKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="saveButton">
       <Properties>

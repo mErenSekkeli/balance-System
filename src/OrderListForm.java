@@ -38,12 +38,9 @@ public class OrderListForm extends javax.swing.JFrame {
     public void addOrderToList(Sale order) {
 
         Employee emp = EmployeeManager.getEmployeeFromId(order.sellerID);
-        if(emp == null) 
-        {
-            JOptionPane.showMessageDialog(this, "Siparişleri listelerken bir problem oluştu!");
-            return;
-        }
-        getDefaultModel().addRow(new Object[]{order.ID,order.date, order.totalPrice, emp.name, order.isDeleted});
+        String workerName = (emp != null) ? emp.name : "Çıkarılmış Çalışan";
+        
+        getDefaultModel().addRow(new Object[]{order.ID,order.date, order.totalPrice, workerName, order.isDeleted});
     }
 
     /**

@@ -132,8 +132,7 @@ public class loginPage extends javax.swing.JFrame {
             db.preState.setString(2, pass);
             ResultSet rs=db.preState.executeQuery();
             
-            if(rs != null){
-                rs.next();
+            if(rs != null && rs.next()){
                 info_message.setForeground(new Color(37, 146, 67));
                 info_message.setText("Kullanici girisi basarili!");
                 
@@ -158,6 +157,11 @@ public class loginPage extends javax.swing.JFrame {
                 db.preState.setInt(1, account_emp_id);
                 db.preState.executeUpdate();
                 
+            } else {
+                
+                info_message.setText("Kullanici girisi basarisiz!");
+                info_message.setForeground(new Color(255, 0, 0));
+                return;
             }
             
             /*  

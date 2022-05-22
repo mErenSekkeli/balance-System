@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 public class AddProductFrontEnd extends javax.swing.JFrame {
@@ -92,6 +93,12 @@ public class AddProductFrontEnd extends javax.swing.JFrame {
         cost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 costActionPerformed(evt);
+            }
+        });
+
+        stock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                stokKeyTyped(evt);
             }
         });
 
@@ -205,6 +212,9 @@ public class AddProductFrontEnd extends javax.swing.JFrame {
         }else if(stock.getText().equals("")){
             error_message.setForeground(Color.RED);
             error_message.setText("Stok Miktari Bos Birakilamaz!");
+        } else if (Integer.parseInt(stock.getText()) < 0) { 
+            error_message.setForeground(Color.RED);
+            error_message.setText("Stok Miktari negatif olamaz!");
         }
         else{
             boolean result = set.add(name.getText(),Double.parseDouble(price.getText()),Double.parseDouble(cost.getText()),Double.parseDouble(marketPrice.getText()),Integer.parseInt(stock.getText()));
@@ -228,6 +238,14 @@ public class AddProductFrontEnd extends javax.swing.JFrame {
         list.setVisible(true);
         //list.listInject();
     }//GEN-LAST:event_addProduct1ActionPerformed
+
+    private void stokKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stokKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();  // if it's not a number, ignore the event
+        }
+    }//GEN-LAST:event_stokKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -21,7 +21,7 @@ public class Employee {
     
     
     ArrayList<Employee> employeeInfo = new ArrayList<>();
-    private static Connector db=new Connector();
+    private static Connector db=DatabaseInstance.getDb();
     private String query="SELECT * FROM employer";
     
     public Employee(int ID,String name, int workTime, int soldCount, Date hiringTime, Date lastLogin) {

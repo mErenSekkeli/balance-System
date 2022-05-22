@@ -43,11 +43,16 @@ public class registerPage extends javax.swing.JFrame {
 
         button1.setLabel("button1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Kullanici Kaydi");
         setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("Email");
 
@@ -94,7 +99,7 @@ public class registerPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(267, Short.MAX_VALUE)
+                .addContainerGap(317, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -117,7 +122,7 @@ public class registerPage extends javax.swing.JFrame {
                             .addComponent(user_pass)
                             .addComponent(user_pass2)
                             .addComponent(user_name)
-                            .addComponent(user_role, 0, 367, Short.MAX_VALUE))
+                            .addComponent(user_role, 0, 418, Short.MAX_VALUE))
                         .addGap(428, 428, 428))))
         );
         layout.setVerticalGroup(
@@ -228,8 +233,6 @@ public class registerPage extends javax.swing.JFrame {
                 db.preState.setString(3, Integer.toString(account_role));
                 int check = db.preState.executeUpdate();
 
-                // kullanıcı kaydı başarılı ise kullanıcı girişi yapması için yönlendirme yapılır.
-                System.out.println("Kullanıcı Kaydı Başarılı: Kullanıcı Giriş Yapması İçin Yönlendiriliyor");
 
                 // Kullanıcının accounts tablosundaki insert edildiğinde oluşan id'si employer tablosundaki ile eşlenip kullanıcı o tabloya da insert ediliyor
                 query = "SELECT * FROM accounts where account_email = ? and account_password_hash = ?";
@@ -264,11 +267,7 @@ public class registerPage extends javax.swing.JFrame {
                     timer.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent arg0) {
-
-                            setVisible(false);
-                            loginPage log = new loginPage();
-                            log.setVisible(true);
-                            timer.stop();
+                            dispose();
                         }
 
                     });
@@ -287,9 +286,7 @@ public class registerPage extends javax.swing.JFrame {
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
 
-                    setVisible(false);
-                    registerPage reg = new registerPage();
-                    reg.registerInject();
+                    dispose();
                     timer.stop();
                 }
 
@@ -309,6 +306,10 @@ public class registerPage extends javax.swing.JFrame {
         loginPage log = new loginPage();
         log.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
     public void registerInject() {
         java.awt.EventQueue.invokeLater(() -> {
             new registerPage().setVisible(true);

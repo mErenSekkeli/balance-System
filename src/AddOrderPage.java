@@ -12,6 +12,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -22,17 +23,18 @@ import javax.swing.table.DefaultTableModel;
  * @author saity
  */
 public class AddOrderPage extends javax.swing.JFrame {
+
     private ArrayList<OrderItem> items;
     private ArrayList<Product> productList;
     private OrderItem item;
     private int saleID;
-    Sale sale;
-    
+    public Sale sale;
+
     /**
      * Creates new form AddOrderPage
      */
     public AddOrderPage() {
-        SalesDbHelper dbHelper = new SalesDbHelper();        
+        SalesDbHelper dbHelper = new SalesDbHelper();
         initComponents();
         initTables();
         getProductTableDatas();
@@ -41,50 +43,51 @@ public class AddOrderPage extends javax.swing.JFrame {
         getCartDatas();
         sale = new Sale(currentUser.getAccount_id());
         sale.addSale();
-        
+
         saleID = dbHelper.getSaleID();
         sale.ID = saleID;
     }
-    
-    private void initTables(){
-        
+
+    private void initTables() {
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {},
-            new String [] {
-                "Ürün ID", "Ürün Adı", "Stok", "Fiyat"
-            }
-        )); 
-        
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {},
-            new String [] {
-                "Ürün ID", "Ürün Adı", "Fiyat", "Adet"
-            }
+                new Object[][]{},
+                new String[]{
+                    "Ürün ID", "Ürün Adı", "Stok", "Fiyat"
+                }
         ));
-        
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Ürün ID", "Ürün Adı", "Fiyat", "Adet"
+                }
+        ));
+
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jTable1.setDefaultEditor(Object.class, null);
         jTable2.setDefaultEditor(Object.class, null);
-        
+
     }
-    
-    public void getProductTableDatas(){
+
+    public void getProductTableDatas() {
         ProductOperations po = new ProductOperations();
         ArrayList<Product> products = po.getEnableProducts();
         productList = products;
-        for(Product p : products)
-           getDefaultModelOfProductTable().addRow(new Object[]{p.ID,p.name, p.stock,priceFormatter(p.price)});
-    }
-    
-    public void getCartDatas(){
-        Product p;
-        if(item != null){
-            p = item.product;
-            getDefaultModelOfCart().addRow(new Object[]{p.ID,p.name,priceFormatter(p.price), item.amount});
+        for (Product p : products) {
+            getDefaultModelOfProductTable().addRow(new Object[]{p.ID, p.name, p.stock, priceFormatter(p.price)});
         }
     }
-   
+
+    public void getCartDatas() {
+        Product p;
+        if (item != null) {
+            p = item.product;
+            getDefaultModelOfCart().addRow(new Object[]{p.ID, p.name, priceFormatter(p.price), item.amount});
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -277,8 +280,8 @@ public class AddOrderPage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Product prd;
         prd = getSelectedProduct();
-        OrderItem o = new OrderItem(45,prd,getAmount());
-        if(prd.stock >= o.amount){
+        OrderItem o = new OrderItem(45, prd, getAmount());
+        if (prd.stock >= o.amount) {
             o.saleID = saleID;
             item = o;
             items.add(o);
@@ -288,20 +291,20 @@ public class AddOrderPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(!items.isEmpty()){
+        if (!items.isEmpty()) {
             printList();
-            for(OrderItem oi: items){
+            for (OrderItem oi : items) {
                 sale.addOrderItemToSale(oi);
             }
             boolean success = sale.finalizeSale();
-            if(!success)
+            if (!success) {
                 showUnsuccessDialog("Satış Eklenirken Bir Hatayla Karşılaştık. Daha Sonra Tekrar Deneyiniz.");
-            else        
+            } else {
                 showSuccessDialog();
-       
+            }
+
             this.setVisible(false);
-        }
-        else 
+        } else
             showUnsuccessDialog("Lütfen Satışa Eklenecek Ürünleri Seçiniz.");
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -317,121 +320,131 @@ public class AddOrderPage extends javax.swing.JFrame {
         deleteItem();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    
     private DefaultTableModel getDefaultModelOfProductTable() {
         return (DefaultTableModel) jTable1.getModel();
     }
-    
-    private DefaultTableModel getDefaultModelOfCart(){
+
+    private DefaultTableModel getDefaultModelOfCart() {
         return (DefaultTableModel) jTable2.getModel();
     }
-    
-    private int getAmount(){
+
+    private int getAmount() {
         int amount = (Integer) jSpinner1.getValue();
         return amount;
     }
-    
-    private Product getSelectedProduct(){
+
+    private Product getSelectedProduct() {
         int selectedIndex;
         selectedIndex = jTable1.getSelectedRow();
-        
+
         return productList.get(selectedIndex);
     }
-    
-    private String getNameOfSelectedProduct(){
+
+    private String getNameOfSelectedProduct() {
         return getSelectedProduct().name;
     }
-    
-    private void setProductNameTextAreaContent(){
+
+    private void setProductNameTextAreaContent() {
         jTextArea1.setText(getNameOfSelectedProduct());
-        try{
+        try {
             SpinnerModel sm = new SpinnerNumberModel(1, 1, getSelectedProduct().stock, 1);
             jSpinner1.setModel(sm);
-        } catch(java.lang.IllegalArgumentException e){
+        } catch (java.lang.IllegalArgumentException e) {
             showUnsuccessDialog("Eklenmek İstenen Üründe Stok Bulunmamaktadır.");
         }
     }
-    
-    private double calculateTotalPrice(){
+
+    private double calculateTotalPrice() {
         double sum = 0;
-        
-        if(items.isEmpty())
+
+        if (items.isEmpty()) {
             return 0.0;
-        
-        for(OrderItem oi: items)
+        }
+
+        for (OrderItem oi : items) {
             sum += oi.price * oi.amount;
-        
+        }
+
         return sum;
     }
-    
-    private void setTotalPriceTextAreaContent(){
+
+    private void setTotalPriceTextAreaContent() {
         String totalPrice = priceFormatter(calculateTotalPrice());
         jTextArea2.setText(totalPrice);
     }
-    
-    private void deleteItem(){
+
+    private void deleteItem() {
         int index;
         index = getIndexOfSelectedItem();
         getDefaultModelOfCart().removeRow(index);
         items.remove(index);
         setTotalPriceTextAreaContent();
     }
-    
-    private int getIndexOfSelectedItem(){     
+
+    private int getIndexOfSelectedItem() {
         return jTable2.getSelectedRow();
     }
-    
-    private String priceFormatter(double price){
+
+    private String priceFormatter(double price) {
         Locale locale = new Locale("tr", "TR");
         Currency liras = Currency.getInstance(locale);
         NumberFormat lirasFormat = NumberFormat.getCurrencyInstance(locale);
-        
+
         return lirasFormat.format(price);
-    }  
-    
-    private void showCancelDialog(){
-        Object[] options = { "EVET", "HAYIR" };
-            int response=JOptionPane.showOptionDialog(this, "Satışı iptal etmek istiyor musunuz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
-            if(response == JOptionPane.YES_OPTION){  
-                this.dispose();
-            }
-            else{
-                
-            }
     }
-    
-    private void showSuccessDialog(){
-        Object[] options = { "Excel Çıktısı Al", "Ana Menüye Dön" };
-            int response=JOptionPane.showOptionDialog(this, "Satış Başarıyla Eklendi", "Satış Başarılı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
-            if(response == JOptionPane.YES_OPTION){  
-                try {
-                    CSVExporter.jtExportResultSetWithDialog(this, jTable2, true);
-                    this.dispose();
-                } catch (SQLException | IOException ex) {
-            Logger.getLogger(ListRefundedProductsUI.class.getName()).log(Level.SEVERE, null, ex);
+
+    private void cancelOrder() {
+        try {
+            Connector db = DatabaseInstance.getDb();
+            db.preState = db.con.prepareStatement("DELETE FROM orders WHERE orders_id = ?");
+            db.preState.setInt(1, saleID);
+            db.preState.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AddOrderPage.class.getName()).log(Level.SEVERE, null, ex);
         }
-            }
-            else{
+    }
+
+    private void showCancelDialog() {
+        Object[] options = {"EVET", "HAYIR"};
+        int response = JOptionPane.showOptionDialog(this, "Satışı iptal etmek istiyor musunuz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        if (response == JOptionPane.YES_OPTION) {
+            cancelOrder();
+            this.dispose();
+        } else {
+
+        }
+    }
+
+    private void showSuccessDialog() {
+        Object[] options = {"Excel Çıktısı Al", "Ana Menüye Dön"};
+        int response = JOptionPane.showOptionDialog(this, "Satış Başarıyla Eklendi", "Satış Başarılı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        if (response == JOptionPane.YES_OPTION) {
+            try {
+                CSVExporter.jtExportResultSetWithDialog(this, jTable2, true);
                 this.dispose();
+            } catch (SQLException | IOException ex) {
+                Logger.getLogger(ListRefundedProductsUI.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            this.dispose();
+        }
     }
-    
-    private void showUnsuccessDialog(String message){
-        Object[] options = { "Tamam" };
-            int response=JOptionPane.showOptionDialog(this, message, "Hata !", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE,null,options,options[0]);
-            if(response == JOptionPane.YES_OPTION){  
-                
-            }
+
+    private void showUnsuccessDialog(String message) {
+        Object[] options = {"Tamam"};
+        int response = JOptionPane.showOptionDialog(this, message, "Hata !", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+        if (response == JOptionPane.YES_OPTION) {
+
+        }
     }
-    
-    public void printList(){
+
+    public void printList() {
         for (OrderItem item1 : items) {
             System.out.println(item1.productID);
         }
     }
-   
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

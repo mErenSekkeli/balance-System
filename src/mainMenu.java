@@ -18,6 +18,7 @@ public class mainMenu extends javax.swing.JFrame {
             // Stokçu (?)
             urunekle.setVisible(true);
             urunlistesi.setVisible(true);
+            stokanalizi.setVisible(true);
             
             satisgoruntuleiade.setVisible(false);
             satisekle.setVisible(false);
@@ -25,7 +26,6 @@ public class mainMenu extends javax.swing.JFrame {
             iadeedilenurunlistesi.setVisible(false);
             satisozeti.setVisible(false);
             satisanalizi.setVisible(false);
-            stokanalizi.setVisible(false);
             karanalizi.setVisible(false);
             addEmployee.setVisible(false);
 

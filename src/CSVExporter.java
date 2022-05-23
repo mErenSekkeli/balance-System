@@ -168,7 +168,7 @@ public class CSVExporter {
         writeToCSV(fileName, out);
     }
 
-    public static <T> void exportIterable(String fileName, Iterable<Iterable<? extends CharSequence>> objList, ArrayList<String> headers) throws FileNotFoundException, IOException {
+    public static void exportIterable(String fileName, Iterable<Iterable<? extends CharSequence>> objList, ArrayList<String> headers) throws FileNotFoundException, IOException {
         File targetFile = new File(fileName);
 
         try ( OutputStream outStream = new FileOutputStream(targetFile)) {

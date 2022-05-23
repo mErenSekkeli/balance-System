@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class Employee {
     
-    static int numberOfEmployee=0;
+    public static int numberOfEmployee=0;
     
     public int ID;
     public String name;

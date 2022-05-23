@@ -22,14 +22,14 @@ public class analysisEmployeeFrontEnd extends javax.swing.JFrame {
         anEmp=new analysisEmployee();
         getWorkAnalysis();
     }
-    
+    /*
     public void inject(){
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new analysisEmployeeFrontEnd().setVisible(true);
             }
         });
-    }
+    }*/
     
     public void getWorkAnalysis(){
         ArrayList<String> empWorkList=anEmp.getEmpWork();

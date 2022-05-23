@@ -11,10 +11,10 @@ public class Connector {
     private String admin_pass="SISTEManalizi123";
     private String db_name="sistemAnalizi";
     private String host="207.154.220.30";
-    int port=3306;
-    Connection con=null;
-    Statement state=null;
-    PreparedStatement preState=null;
+    private int port=3306;
+    public Connection con=null;
+    public Statement state=null;
+    public PreparedStatement preState=null;
     
     public Connector(){
         

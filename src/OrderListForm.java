@@ -31,11 +31,11 @@ public class OrderListForm extends javax.swing.JFrame {
         }
     }
     
-    public DefaultTableModel getDefaultModel() {
+    private DefaultTableModel getDefaultModel() {
         return (DefaultTableModel) jTable1.getModel();
     }
     
-    public void addOrderToList(Sale order) {
+    private void addOrderToList(Sale order) {
 
         Employee emp = EmployeeManager.getEmployeeFromId(order.sellerID);
         String workerName = (emp != null) ? emp.name : "Çıkarılmış Çalışan";

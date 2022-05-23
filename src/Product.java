@@ -4,15 +4,15 @@ import java.util.Currency;
 import java.util.Locale;
 
 public class Product {
-    static int numberOfProducts=0;
-    int ID;
-    String name;
-    double price;
-    double cost;
-    double marketPrice;
-    int stock;
-    boolean enabled;
-    ArrayList<Product> productInfo = new ArrayList<>();
+    public static int numberOfProducts=0;
+    public int ID;
+    public String name;
+    public double price;
+    public double cost;
+    public double marketPrice;
+    public int stock;
+    public boolean enabled;
+    public ArrayList<Product> productInfo = new ArrayList<>();
     private String query="SELECT * FROM products";
 
     //Ürünlerin Constructor'u

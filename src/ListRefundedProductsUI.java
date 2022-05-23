@@ -33,7 +33,7 @@ public class ListRefundedProductsUI extends javax.swing.JFrame {
         });
     }
 
-    public DefaultTableModel getDefaultModel() {
+    private DefaultTableModel getDefaultModel() {
         return (DefaultTableModel) jTable1.getModel();
     }
     private void addItemToList(OrderItem item) {

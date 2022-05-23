@@ -18,10 +18,10 @@ public class OrderItemsView extends javax.swing.JFrame {
     private static final int ORDER_ID_COLUMN = 1;
     private static final int AMOUNT_COLUMN = 3;
     private static final int REFUNDED_COLUMN = 6;
-    int orderId;
+    private int orderId;
     private SalesDbHelper orderManager;
     private ProductOperations pOps;
-    Map<Integer, Product> products;
+    private Map<Integer, Product> products;
     public OrderItemsView(SalesDbHelper orderManager, ProductOperations pOps, int orderId) {
         this.orderId = orderId;
         this.orderManager = orderManager;
@@ -55,7 +55,7 @@ public class OrderItemsView extends javax.swing.JFrame {
         }
     }
 
-    public DefaultTableModel getDefaultModel() {
+    private DefaultTableModel getDefaultModel() {
         return (DefaultTableModel) jTable1.getModel();
     }
     private void addItemToList(OrderItem item) {

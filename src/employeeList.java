@@ -55,7 +55,7 @@ public class employeeList extends javax.swing.JFrame {
         
     }
     
-    public DefaultTableModel getDefaultModel() {
+    private DefaultTableModel getDefaultModel() {
         return (DefaultTableModel) employeeTable.getModel();
     }
     

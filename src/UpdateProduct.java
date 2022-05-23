@@ -10,9 +10,9 @@ import javax.swing.JOptionPane;
  */
 public class UpdateProduct extends javax.swing.JFrame {
     
-    Product setProduct;
-    ProductOperations set;
-    ProductList pList;
+    private Product setProduct;
+    private ProductOperations set;
+    private ProductList pList;
     /**
      * Creates new form UpdateProduct
      */

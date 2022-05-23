@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class EmployeeManager {
 
-    static int numberOfEmployee = 0;
+    public static int numberOfEmployee = 0;
 
     public int ID;
     public String name;
@@ -20,7 +20,7 @@ public class EmployeeManager {
     public Date hiringTime;
     public Date lastLogin;
 
-    ArrayList<EmployeeManager> employeeInfo = new ArrayList<>();
+    public ArrayList<EmployeeManager> employeeInfo = new ArrayList<>();
     private static Connector db = DatabaseInstance.getDb();
     private Connection con = null;
     private Statement state = null;

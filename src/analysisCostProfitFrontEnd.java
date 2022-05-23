@@ -24,14 +24,14 @@ public class analysisCostProfitFrontEnd extends javax.swing.JFrame {
         initComponents();
         getProductAnalysis();
     }
-    
+    /*
     public void inject(){
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new analysisCostProfitFrontEnd().setVisible(true);
             }
         });
-    }
+    }*/
     
     //Ürünlerin Datasını Alıp Tabloya Bastıran Fonksiyon
     public void getProductAnalysis(){

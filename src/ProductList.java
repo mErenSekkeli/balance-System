@@ -1,5 +1,4 @@
 
-
 import java.awt.Color;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,43 +13,44 @@ import javax.swing.table.DefaultTableModel;
  * @author Muhammed Ali LALE
  */
 public class ProductList extends javax.swing.JFrame {
-        
-        ArrayList<Product> allProducts;
-        ArrayList<Product> enableProducts;
-        ArrayList<Product> disableProducts;
-        ArrayList<Product> onStockProducts;
-        ArrayList<Product> offStockProducts;
-        ProductOperations list = new ProductOperations();
-    
-     /**
-      * Creates new form ProductList
-      */
+
+    private ArrayList<Product> allProducts;
+    private ArrayList<Product> enableProducts;
+    private ArrayList<Product> disableProducts;
+    private ArrayList<Product> onStockProducts;
+    private ArrayList<Product> offStockProducts;
+    private ProductOperations list = new ProductOperations();
+
+    /**
+     * Creates new form ProductList
+     */
     public ProductList() {
         initComponents();
         allProducts = list.getProductList();
         addProductToTable(allProducts);
     }
+
     /*
     public void listInject(){
         java.awt.EventQueue.invokeLater(() -> {
                 new ProductList().setVisible(true);
             });
     }*/
-    
+
     //Verilen Listeyi JTable'a ekler
-    public void addProductToTable(ArrayList<Product> Products){
+    public void addProductToTable(ArrayList<Product> Products) {
         String sale;
-        for(Product p:Products){
-            if(p.enabled){
-                sale="Satışta";
-            }else{
-                sale="Satışta Değil";
+        for (Product p : Products) {
+            if (p.enabled) {
+                sale = "Satışta";
+            } else {
+                sale = "Satışta Değil";
             }
-            getDefaultModel().addRow(new Object[]{Integer.toString(p.ID),p.name,p.priceFormatter(p.price),p.priceFormatter(p.marketPrice),p.priceFormatter(p.cost),Integer.toString(p.stock),sale});
+            getDefaultModel().addRow(new Object[]{Integer.toString(p.ID), p.name, p.priceFormatter(p.price), p.priceFormatter(p.marketPrice), p.priceFormatter(p.cost), Integer.toString(p.stock), sale});
         }
     }
-    
-    public DefaultTableModel getDefaultModel() {
+
+    private DefaultTableModel getDefaultModel() {
         return (DefaultTableModel) product_table.getModel();
     }
 
@@ -225,30 +225,30 @@ public class ProductList extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxActionPerformed
 
     //Tabloyu temizler
-    public void clearTable(){
-        while(getDefaultModel().getRowCount()>0){
+    public void clearTable() {
+        while (getDefaultModel().getRowCount() > 0) {
             getDefaultModel().removeRow(0);
         }
     }
-    
+
     //Hangi ürün liestesinin ekranda görüntüleneceğini ayarlar
     private void jComboBoxİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxİtemStateChanged
         message.setText("");
-        if(jComboBox.getSelectedIndex()==0){
+        if (jComboBox.getSelectedIndex() == 0) {
             clearTable();
             addProductToTable(allProducts = list.getProductList());
-        }else if(jComboBox.getSelectedIndex()==1){
+        } else if (jComboBox.getSelectedIndex() == 1) {
             clearTable();
             addProductToTable(onStockProducts = list.getProductsOnStock());
-        }else if(jComboBox.getSelectedIndex()==2){
+        } else if (jComboBox.getSelectedIndex() == 2) {
             clearTable();
-            addProductToTable(offStockProducts= list.getProductsOffStock());
-        }else if(jComboBox.getSelectedIndex()==3){
+            addProductToTable(offStockProducts = list.getProductsOffStock());
+        } else if (jComboBox.getSelectedIndex() == 3) {
             clearTable();
-            addProductToTable(enableProducts= list.getEnableProducts());
-        }else if(jComboBox.getSelectedIndex()==4){
+            addProductToTable(enableProducts = list.getEnableProducts());
+        } else if (jComboBox.getSelectedIndex() == 4) {
             clearTable();
-            addProductToTable(disableProducts= list.getDisableProducts());
+            addProductToTable(disableProducts = list.getDisableProducts());
         }
     }//GEN-LAST:event_jComboBoxİtemStateChanged
 
@@ -260,88 +260,88 @@ public class ProductList extends javax.swing.JFrame {
         //setVisible(false);
         apf.setVisible(true);
     }//GEN-LAST:event_addPrButtonActionPerformed
-    
+
     //Listeyi Silip tekrar yazdırır (refresh)
-    public void returnToList(){
-        if(jComboBox.getSelectedIndex()==0){
-        clearTable();
-        addProductToTable(allProducts = list.getProductList());
-        }else if(jComboBox.getSelectedIndex()==1){
+    public void returnToList() {
+        if (jComboBox.getSelectedIndex() == 0) {
+            clearTable();
+            addProductToTable(allProducts = list.getProductList());
+        } else if (jComboBox.getSelectedIndex() == 1) {
             clearTable();
             addProductToTable(onStockProducts = list.getProductsOnStock());
-        }else if(jComboBox.getSelectedIndex()==2){
+        } else if (jComboBox.getSelectedIndex() == 2) {
             clearTable();
-            addProductToTable(offStockProducts= list.getProductsOffStock());
-        }else if(jComboBox.getSelectedIndex()==3){
+            addProductToTable(offStockProducts = list.getProductsOffStock());
+        } else if (jComboBox.getSelectedIndex() == 3) {
             clearTable();
-            addProductToTable(enableProducts= list.getEnableProducts());
-        }else if(jComboBox.getSelectedIndex()==4){
+            addProductToTable(enableProducts = list.getEnableProducts());
+        } else if (jComboBox.getSelectedIndex() == 4) {
             clearTable();
-            addProductToTable(disableProducts= list.getDisableProducts());
+            addProductToTable(disableProducts = list.getDisableProducts());
         }
     }
-    
-   //comboBoxa göre seçili olan ürün listesini döndürür
-    private ArrayList<Product> getCurrentList(){
-        if(jComboBox.getSelectedIndex()==0){
+
+    //comboBoxa göre seçili olan ürün listesini döndürür
+    private ArrayList<Product> getCurrentList() {
+        if (jComboBox.getSelectedIndex() == 0) {
             return allProducts;
-        }else if(jComboBox.getSelectedIndex()==1){
+        } else if (jComboBox.getSelectedIndex() == 1) {
             return onStockProducts;
-        }else if(jComboBox.getSelectedIndex()==2){
+        } else if (jComboBox.getSelectedIndex() == 2) {
             return offStockProducts;
-        }else if(jComboBox.getSelectedIndex()==3){
+        } else if (jComboBox.getSelectedIndex() == 3) {
             return enableProducts;
-        }else{
+        } else {
             return disableProducts;
         }
     }
-    
+
     //message Labelında yazacak metni düzenler
-    public void putMessage(Color renk, String msg){
+    public void putMessage(Color renk, String msg) {
         message.setForeground(renk);
         message.setText(msg);
     }
-    
+
     //Tabloda seçili satırdaki ürünü döndürür
-    private Product getSelectedProduct(){
+    private Product getSelectedProduct() {
         int selectedIndex;
         selectedIndex = product_table.getSelectedRow();
         return getCurrentList().get(selectedIndex);
     }
-    
+
     //Ürün güncelleme penceresine yönlendirir
     private void updatePrButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePrButtonActionPerformed
         int selectedIndex;
-        selectedIndex = product_table.getSelectedRow(); 
-        if(selectedIndex == -1){
+        selectedIndex = product_table.getSelectedRow();
+        if (selectedIndex == -1) {
             putMessage(Color.red, "Bir ürün seçiniz");
-        }else{
+        } else {
             message.setText("");
             Product selP = getSelectedProduct();
-            UpdateProduct updt = new UpdateProduct(selP,list,this);
+            UpdateProduct updt = new UpdateProduct(selP, list, this);
             updt.setVisible(true);
-            
+
         }
     }//GEN-LAST:event_updatePrButtonActionPerformed
-    
+
     //ürünleri enable-disable eder
     private void enabledButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enabledButtonActionPerformed
         int selectedIndex;
-        selectedIndex = product_table.getSelectedRow(); 
-        if(selectedIndex == -1){
+        selectedIndex = product_table.getSelectedRow();
+        if (selectedIndex == -1) {
             putMessage(Color.red, "Bir ürün seçiniz");
-        }else if(getSelectedProduct().enabled){
-            Object[] options = { "EVET", "HAYIR" };
-            int response=JOptionPane.showOptionDialog(this, "Ürünü satıştan kaldırmak istiyor musunuz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
-            if(response == JOptionPane.YES_OPTION){  
+        } else if (getSelectedProduct().enabled) {
+            Object[] options = {"EVET", "HAYIR"};
+            int response = JOptionPane.showOptionDialog(this, "Ürünü satıştan kaldırmak istiyor musunuz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if (response == JOptionPane.YES_OPTION) {
                 list.disable(getSelectedProduct().ID);
                 returnToList();
                 putMessage(Color.green, "Ürün Satıştan Kaldırıldı");
             }
-        }else if(!getSelectedProduct().enabled){
-            Object[] options = { "EVET", "HAYIR" };
-            int response=JOptionPane.showOptionDialog(this, "Ürünü tekrar satışa koymak istiyor musunuz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
-            if(response == JOptionPane.YES_OPTION){  
+        } else if (!getSelectedProduct().enabled) {
+            Object[] options = {"EVET", "HAYIR"};
+            int response = JOptionPane.showOptionDialog(this, "Ürünü tekrar satışa koymak istiyor musunuz?", "Uyarı", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if (response == JOptionPane.YES_OPTION) {
                 list.enable(getSelectedProduct().ID);
                 returnToList();
                 putMessage(Color.green, "Ürün Satışa Konuldu");
@@ -351,9 +351,9 @@ public class ProductList extends javax.swing.JFrame {
 
     //seçili ürüne göre enable butonundaki metni değiştirir
     private void product_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_tableMouseClicked
-        if(getSelectedProduct().enabled){
+        if (getSelectedProduct().enabled) {
             enabledButton.setText("Ürünü Satıştan kaldır");
-        }else{
+        } else {
             enabledButton.setText("Ürünü Satışa koy");
         }
     }//GEN-LAST:event_product_tableMouseClicked

@@ -15,7 +15,7 @@ public class Sale {
         this.isDeleted = false;
     }
     
-    public Sale(int ID, Timestamp date, double totalPrice, int sellerID,boolean isDeleted){
+    public Sale(int ID, Timestamp date, double totalPrice, int sellerID, boolean isDeleted){
         this.ID = ID;
         this.date = date;
         this.totalPrice = totalPrice;
@@ -23,7 +23,7 @@ public class Sale {
         this.isDeleted = isDeleted;
     }
     
-    public Sale(Timestamp date, double totalPrice, int sellerID,boolean isDeleted){
+    public Sale(Timestamp date, double totalPrice, int sellerID, boolean isDeleted){
         this.date = date;
         this.totalPrice = totalPrice;
         this.sellerID = sellerID;

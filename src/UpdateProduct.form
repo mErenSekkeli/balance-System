@@ -146,6 +146,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="price">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="priceKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="LabelMPrice">
       <Properties>
@@ -156,6 +159,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="marketPrice">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="marketPriceKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="LabelCost">
       <Properties>
@@ -166,6 +172,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cost">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="costKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="LabelStock">
       <Properties>

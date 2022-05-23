@@ -94,6 +94,7 @@ public class ProductList extends javax.swing.JFrame {
                 "Ürün ID", "Ürün Adı", "Fiyat", "Pazar Fiyatı", "Maliyet", "Stok Sayısı", "Satış Durumu"
             }
         ) {
+
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
@@ -256,8 +257,8 @@ public class ProductList extends javax.swing.JFrame {
         message.setText("");
         AddProductFrontEnd apf = new AddProductFrontEnd();
         //dispose();
-        setVisible(false);
-        apf.Inject();
+        //setVisible(false);
+        apf.setVisible(true);
     }//GEN-LAST:event_addPrButtonActionPerformed
     
     //Listeyi Silip tekrar yazdırır (refresh)

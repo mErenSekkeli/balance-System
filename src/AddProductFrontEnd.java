@@ -12,11 +12,6 @@ public class AddProductFrontEnd extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void Inject(){
-        java.awt.EventQueue.invokeLater(() -> {
-                new AddProductFrontEnd().setVisible(true);
-            });
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,16 +78,31 @@ public class AddProductFrontEnd extends javax.swing.JFrame {
                 priceActionPerformed(evt);
             }
         });
+        price.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                priceKeyTyped(evt);
+            }
+        });
 
         marketPrice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 marketPriceActionPerformed(evt);
             }
         });
+        marketPrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                marketPriceKeyTyped(evt);
+            }
+        });
 
         cost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 costActionPerformed(evt);
+            }
+        });
+        cost.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                costKeyTyped(evt);
             }
         });
 
@@ -246,6 +256,27 @@ public class AddProductFrontEnd extends javax.swing.JFrame {
             evt.consume();  // if it's not a number, ignore the event
         }
     }//GEN-LAST:event_stokKeyTyped
+    
+    private void priceChecker(java.awt.event.KeyEvent evt) {
+        char c = evt.getKeyChar();
+        if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE) && c != '.') {
+            evt.consume();  // if it's not a number, ignore the event
+        }
+    }
+    private void priceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_priceKeyTyped
+        // TODO add your handling code here:
+        priceChecker(evt);
+    }//GEN-LAST:event_priceKeyTyped
+
+    private void costKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_costKeyTyped
+        // TODO add your handling code here:
+        priceChecker(evt);
+    }//GEN-LAST:event_costKeyTyped
+
+    private void marketPriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_marketPriceKeyTyped
+        // TODO add your handling code here:
+        priceChecker(evt);
+    }//GEN-LAST:event_marketPriceKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

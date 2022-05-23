@@ -174,6 +174,7 @@
     <Component class="javax.swing.JTextField" name="price">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="priceActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="priceKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="name">
@@ -181,11 +182,13 @@
     <Component class="javax.swing.JTextField" name="marketPrice">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="marketPriceActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="marketPriceKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cost">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="costActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="costKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="stock">

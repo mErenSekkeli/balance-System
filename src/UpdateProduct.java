@@ -69,11 +69,29 @@ public class UpdateProduct extends javax.swing.JFrame {
         LabelPrice.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         LabelPrice.setText("Ürün Fiyatı");
 
+        price.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                priceKeyTyped(evt);
+            }
+        });
+
         LabelMPrice.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         LabelMPrice.setText("Ortalama Pazar Fiyatı");
 
+        marketPrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                marketPriceKeyTyped(evt);
+            }
+        });
+
         LabelCost.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         LabelCost.setText("Ürünün Maliyeti");
+
+        cost.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                costKeyTyped(evt);
+            }
+        });
 
         LabelStock.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         LabelStock.setText("Stok Sayısı");
@@ -171,7 +189,12 @@ public class UpdateProduct extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    private void priceChecker(java.awt.event.KeyEvent evt) {
+        char c = evt.getKeyChar();
+        if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE) && c != '.') {
+            evt.consume();  // if it's not a number, ignore the event
+        }
+    }
     private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameActionPerformed
@@ -217,6 +240,21 @@ public class UpdateProduct extends javax.swing.JFrame {
             evt.consume();  // if it's not a number, ignore the event
         }
     }//GEN-LAST:event_stokKeyTyped
+
+    private void costKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_costKeyTyped
+        // TODO add your handling code here:
+        priceChecker(evt);
+    }//GEN-LAST:event_costKeyTyped
+
+    private void marketPriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_marketPriceKeyTyped
+        // TODO add your handling code here:
+        priceChecker(evt);
+    }//GEN-LAST:event_marketPriceKeyTyped
+
+    private void priceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_priceKeyTyped
+        // TODO add your handling code here:
+        priceChecker(evt);
+    }//GEN-LAST:event_priceKeyTyped
 
    
     

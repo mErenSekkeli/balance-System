@@ -4,7 +4,6 @@ import java.util.Currency;
 import java.util.Locale;
 
 public class Product {
-    public static int numberOfProducts=0;
     public int ID;
     public String name;
     public double price;
@@ -12,7 +11,6 @@ public class Product {
     public double marketPrice;
     public int stock;
     public boolean enabled;
-    public ArrayList<Product> productInfo = new ArrayList<>();
     private String query="SELECT * FROM products";
 
     //Ürünlerin Constructor'u

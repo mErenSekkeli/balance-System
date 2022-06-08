@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public class Connector {
     
-    private String admin_ad="sistemanalizi";
-    private String admin_pass="SISTEManalizi123";
-    private String db_name="sistemAnalizi";
-    private String host="207.154.220.30";
+    private String admin_ad="dbusername";
+    private String admin_pass="dbpass";
+    private String db_name="dbname";
+    private String host="dbHost";
     private int port=3306;
     public Connection con=null;
     public Statement state=null;
